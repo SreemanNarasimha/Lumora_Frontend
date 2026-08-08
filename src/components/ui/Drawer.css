@@ -1,0 +1,38 @@
+/* Drawer backdrop */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-base) var(--ease-luxury);
+}
+.drawer-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Drawer panel */
+.drawer-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: min(480px, 92vw);
+  background: rgba(15, 15, 22, 0.92);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border-left: 1px solid var(--card-border);
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.4);
+  z-index: 201;
+  transform: translateX(100%);
+  transition: transform var(--duration-base) var(--ease-luxury);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.drawer-panel.open {
+  transform: translateX(0);
+}

@@ -1,0 +1,36 @@
+.cart-page { padding: 0 var(--space-outer) var(--space-9); max-width: 1440px; margin: 0 auto; }
+.cart-layout { display: grid; grid-template-columns: 1fr 400px; gap: var(--space-10); align-items: start; }
+.cart-items-col { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border-general); }
+.cart-item { display: grid; grid-template-columns: 120px 1fr auto; gap: var(--space-6); align-items: center; padding: var(--space-6) 0; border-bottom: 1px solid var(--border-general); }
+.cart-item-img-wrap { width: 120px; height: 140px; overflow: hidden; background: var(--color-surface-hover); flex-shrink: 0; }
+.cart-item-img { width: 100%; height: 100%; object-fit: cover; }
+.cart-item-no-img { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.cart-item-info { display: flex; flex-direction: column; gap: var(--space-2); }
+.cart-item-name { font-family: var(--font-heading); font-size: 20px; font-weight: 400; color: var(--text-primary); }
+.cart-item-price { font-family: var(--font-body); font-size: 14px; color: var(--text-secondary); }
+.cart-item-controls { display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-4); }
+.qty-controls { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-1) var(--space-2); border: 1px solid var(--border-general); }
+.qty-btn { width: 28px; height: 28px; background: transparent; border: none; cursor: pointer; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; transition: color var(--duration-fast) ease; }
+.qty-btn:hover { color: var(--text-primary); }
+.qty-value { font-family: var(--font-body); font-size: 14px; min-width: 24px; text-align: center; color: var(--text-primary); }
+.cart-item-subtotal { font-family: var(--font-body); font-size: 18px; font-weight: 500; color: var(--text-primary); }
+.cart-item-actions { display: flex; gap: var(--space-3); }
+.cart-action-btn { width: 32px; height: 32px; background: transparent; border: none; cursor: pointer; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; transition: color var(--duration-fast) ease; }
+.cart-action-btn:hover { color: var(--text-primary); }
+.cart-action-btn.danger:hover { color: var(--color-error); }
+.cart-summary-col { position: sticky; top: 120px; }
+.cart-summary { padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-6); background: var(--color-surface-hover); }
+.cart-summary h2 { font-family: var(--font-heading); font-size: 24px; font-weight: 400; }
+.coupon-wrap { display: flex; gap: var(--space-3); }
+.coupon-input-wrap { flex: 1; display: flex; align-items: center; gap: var(--space-2); border-bottom: 1px solid var(--border-general); padding: 0 0 var(--space-2) 0; height: 36px; transition: border-color var(--duration-fast) ease; }
+.coupon-input-wrap:focus-within { border-color: var(--text-primary); }
+.coupon-input { background: transparent; border: none; outline: none; color: var(--text-primary); font-family: var(--font-body); font-size: 14px; width: 100%; }
+.coupon-success { color: var(--color-success); }
+.summary-lines { display: flex; flex-direction: column; gap: var(--space-4); }
+.summary-line { display: flex; justify-content: space-between; font-family: var(--font-body); font-size: 14px; color: var(--text-secondary); }
+.summary-line.success { color: var(--color-success); }
+.summary-line.total { font-family: var(--font-body); font-size: 20px; font-weight: 500; color: var(--text-primary); }
+.summary-divider { height: 1px; background: var(--border-general); margin: var(--space-2) 0; }
+.cart-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-5); padding: var(--space-10); text-align: center; min-height: 500px; border: 1px dashed var(--border-general); }
+@media (max-width: 1023px) { .cart-layout { grid-template-columns: 1fr; } .cart-summary-col { position: static; } }
+@media (max-width: 767px) { .cart-page { padding: 0 var(--space-4) var(--space-7); } .cart-item { grid-template-columns: 80px 1fr; grid-template-rows: auto auto; gap: var(--space-4); } .cart-item-controls { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; } .cart-item-img-wrap { width: 80px; height: 100px; } }

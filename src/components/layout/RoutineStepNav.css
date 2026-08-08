@@ -1,0 +1,32 @@
+.routine-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-6) 0;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.routine-step {
+  color: var(--color-ink-faint);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-luxury);
+  padding-bottom: 2px;
+  border-bottom: 1.5px solid transparent;
+}
+
+.routine-step:hover {
+  color: var(--color-ink);
+}
+
+.routine-step.active {
+  color: var(--color-gold-dark);
+  border-bottom: 1.5px solid var(--color-gold);
+}
+
+.routine-connector {
+  width: 24px;
+  height: 1px;
+  background-color: var(--color-border-strong);
+}

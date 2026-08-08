@@ -1,0 +1,29 @@
+/* Card ─────────────────────────────────────────────── */
+.card {
+  background: var(--card-fill);
+  backdrop-filter: var(--card-blur);
+  -webkit-backdrop-filter: var(--card-blur);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition:
+    transform var(--duration-base) var(--ease-luxury),
+    box-shadow var(--duration-base) var(--ease-luxury),
+    border-color var(--duration-base) var(--ease-luxury);
+}
+
+.card-interactive {
+  cursor: pointer;
+}
+.card-interactive:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: rgba(255, 122, 31, 0.3);
+}
+.card-interactive:active {
+  transform: translateY(-1px);
+}
+.card-interactive:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}

@@ -1,0 +1,245 @@
+@import './tokens.css';
+
+/* ─────────────────────────────────────────────────────────────────
+   RESET
+───────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   GLASS CARD RECIPE (single source of truth)
+───────────────────────────────────────────────────────────────── */
+.glass-card {
+  background: var(--card-fill);
+  backdrop-filter: var(--card-blur);
+  -webkit-backdrop-filter: var(--card-blur);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   TYPOGRAPHY SCALE
+───────────────────────────────────────────────────────────────── */
+.text-display-1 {
+  font-family: var(--font-display);
+  font-size: 72px;
+  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.text-display-2 {
+  font-family: var(--font-display);
+  font-size: 48px;
+  line-height: 1.1;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.text-h1 {
+  font-family: var(--font-display);
+  font-size: 36px;
+  line-height: 1.2;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.text-h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 1.25;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.text-h3 {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.text-body-lg {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.7;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.text-body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.text-body-sm {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.text-label {
+  font-family: var(--font-button);
+  font-size: 11px;
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   AMBIENT BACKGROUND BLOBS
+───────────────────────────────────────────────────────────────── */
+@keyframes float-blob-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(40px, -30px) scale(1.05); }
+  66%       { transform: translate(-20px, 20px) scale(0.97); }
+}
+@keyframes float-blob-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40%       { transform: translate(-50px, 30px) scale(1.08); }
+  80%       { transform: translate(30px, -20px) scale(0.95); }
+}
+@keyframes float-blob-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(25px, 40px) scale(1.06); }
+}
+
+.ambient-blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+.ambient-blob-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255, 122, 31, 0.22) 0%, transparent 70%);
+  top: -120px; left: -100px;
+  animation: float-blob-1 18s ease-in-out infinite;
+}
+.ambient-blob-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(184, 156, 255, 0.18) 0%, transparent 70%);
+  top: 40%; right: -80px;
+  animation: float-blob-2 22s ease-in-out infinite;
+}
+.ambient-blob-3 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(216, 164, 127, 0.12) 0%, transparent 70%);
+  bottom: -80px; left: 40%;
+  animation: float-blob-3 26s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   PAGE TRANSITION
+───────────────────────────────────────────────────────────────── */
+@keyframes page-fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-enter {
+  animation: page-fade-in var(--duration-base) var(--ease-luxury) both;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SCROLLBAR (dark theme)
+───────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 122, 31, 0.4);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 122, 31, 0.7);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   FOCUS RING (keyboard accessibility)
+───────────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   UTILITY CLASSES
+───────────────────────────────────────────────────────────────── */
+.gradient-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.purple-glow {
+  box-shadow: 0 0 32px rgba(26, 26, 26, 0.2);
+}
+
+.section-padding {
+  padding: var(--space-section) var(--space-outer);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   PENDING BACKEND BANNER
+───────────────────────────────────────────────────────────────── */
+.pending-backend-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-5);
+  background: rgba(255, 230, 109, 0.1);
+  border: 1px solid rgba(255, 230, 109, 0.3);
+  border-radius: var(--radius-md);
+  color: var(--color-warning);
+  font-family: var(--font-button);
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: var(--space-6);
+}

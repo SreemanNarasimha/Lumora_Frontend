@@ -1,0 +1,32 @@
+.settings-page { padding: 0 var(--space-outer) var(--space-9); max-width: 1000px; margin: 0 auto; }
+.settings-layout { display: grid; grid-template-columns: 240px 1fr; gap: var(--space-8); align-items: start; }
+.settings-tab-nav { padding: 0; display: flex; flex-direction: column; gap: var(--space-2); position: sticky; top: 120px; }
+.settings-tab-btn { text-align: left; padding: var(--space-2) var(--space-3); background: transparent; border: none; cursor: pointer; font-family: var(--font-body); font-size: 14px; font-weight: 500; color: var(--text-secondary); transition: color var(--duration-fast) ease; position: relative; }
+.settings-tab-btn:hover { color: var(--text-primary); }
+.settings-tab-btn.active { color: var(--text-primary); }
+.settings-tab-btn.active::before { content: ''; position: absolute; left: -8px; top: 50%; transform: translateY(-50%); width: 2px; height: 16px; background: var(--text-primary); }
+.settings-content { padding: 0; }
+.settings-panel { display: flex; flex-direction: column; }
+.settings-row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); padding: var(--space-6) 0; }
+.settings-row-vertical { flex-direction: column; align-items: flex-start; gap: var(--space-4); }
+.settings-row-label { display: flex; align-items: center; gap: var(--space-4); color: var(--text-primary); }
+.settings-row-label > div p:first-child { color: var(--text-primary); font-family: var(--font-heading); font-size: 18px; margin-bottom: 2px; }
+.settings-row-label > div p:last-child { color: var(--text-secondary); font-family: var(--font-body); font-size: 14px; }
+.settings-divider { height: 1px; background: var(--border-general); margin: 0; }
+/* Theme selector */
+.theme-selector { display: flex; gap: var(--space-2); background: transparent; border: 1px solid var(--border-general); padding: 4px; }
+.theme-option { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-4); background: transparent; border: none; cursor: pointer; font-family: var(--font-body); font-size: 13px; font-weight: 500; color: var(--text-secondary); transition: all var(--duration-fast) ease; }
+.theme-option.active { background: var(--color-surface-hover); color: var(--text-primary); }
+/* Segment control */
+.segment-control { display: flex; gap: var(--space-2); background: transparent; border: 1px solid var(--border-general); padding: 4px; }
+.segment-btn { padding: var(--space-2) var(--space-4); background: transparent; border: none; cursor: pointer; font-family: var(--font-body); font-size: 13px; font-weight: 500; color: var(--text-secondary); transition: all var(--duration-fast) ease; }
+.segment-btn.active { background: var(--color-surface-hover); color: var(--text-primary); }
+/* Toggle */
+.toggle-switch { width: 44px; height: 24px; border-radius: 9999px; background: transparent; border: 1px solid var(--border-general); cursor: pointer; position: relative; transition: all var(--duration-fast) ease; flex-shrink: 0; }
+.toggle-switch.on { background: var(--text-primary); border-color: var(--text-primary); }
+.toggle-thumb { position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--text-secondary); transition: transform var(--duration-fast) ease; }
+.toggle-switch.on .toggle-thumb { transform: translateX(20px); background: var(--color-bg); }
+/* Range */
+.settings-range { width: 100%; accent-color: var(--text-primary); cursor: pointer; }
+@media (max-width: 1023px) { .settings-layout { grid-template-columns: 1fr; } .settings-tab-nav { position: static; flex-direction: row; flex-wrap: wrap; } .settings-tab-btn.active::before { display: none; } }
+@media (max-width: 767px) { .settings-page { padding: 0 var(--space-4) var(--space-7); } .settings-row { flex-direction: column; align-items: flex-start; gap: var(--space-3); } }

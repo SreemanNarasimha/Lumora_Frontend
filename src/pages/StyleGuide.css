@@ -1,0 +1,38 @@
+.styleguide-page {
+  padding: 0 var(--space-outer) var(--space-10);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.styleguide-section {
+  margin-bottom: var(--space-9);
+}
+.styleguide-section-title {
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border-general);
+}
+.styleguide-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-card-gap);
+}
+.styleguide-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: center;
+}
+.styleguide-type-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-6);
+  background: var(--card-fill);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+}
+.color-swatch {
+  width: 100%;
+  height: 80px;
+  border-radius: var(--radius-md);
+}

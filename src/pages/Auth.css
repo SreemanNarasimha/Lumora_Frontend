@@ -1,0 +1,177 @@
+/* ─── Auth page layout ───────────────────────────── */
+.auth-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  background: var(--color-bg);
+  position: relative;
+}
+
+/* ─── Image side ─────────────────────────────────── */
+.auth-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-surface-hover);
+}
+.auth-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.auth-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15,15,22,0.4) 0%, transparent 60%);
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-8);
+}
+.auth-hero-quote {
+  padding: var(--space-6);
+  background: var(--color-bg);
+  max-width: 400px;
+  border: 1px solid var(--border-general);
+}
+:root.dark .auth-hero-quote {
+  background: var(--color-bg);
+}
+
+/* ─── Panel (right) ──────────────────────────────── */
+.auth-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6) var(--space-4);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* ─── Logo ───────────────────────────────────────── */
+.auth-logo {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--text-primary);
+  align-self: center;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-4);
+}
+
+/* ─── Headings ───────────────────────────────────── */
+.auth-title { 
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 400;
+}
+.auth-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-top: calc(-1 * var(--space-3));
+}
+
+/* ─── Error/Success Messages ─────────────────────── */
+.auth-error {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(211, 47, 47, 0.05);
+  border: 1px solid var(--color-error);
+  color: var(--color-error);
+  font-family: var(--font-body);
+  font-size: 13px;
+}
+.auth-success {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(56, 142, 60, 0.05);
+  border: 1px solid var(--color-success);
+  color: var(--color-success);
+  font-family: var(--font-body);
+  font-size: 13px;
+}
+
+/* ─── Form ───────────────────────────────────────── */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ─── Meta row ───────────────────────────────────── */
+.auth-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: var(--space-1);
+}
+.auth-remember {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+.auth-checkbox {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--text-primary);
+  cursor: pointer;
+}
+.auth-forgot {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--duration-fast) ease;
+  font-size: 13px;
+}
+.auth-forgot:hover { color: var(--text-primary); text-decoration: underline; }
+
+/* ─── Divider ────────────────────────────────────── */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--text-muted);
+}
+.auth-divider span:first-child,
+.auth-divider span:last-child {
+  flex: 1;
+  height: 1px;
+  background: var(--border-general);
+}
+.auth-divider .text-label {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ─── Footer links ───────────────────────────────── */
+.auth-switch {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-top: var(--space-2);
+}
+.auth-link {
+  color: var(--text-primary);
+  font-weight: 500;
+  text-decoration: underline;
+  transition: opacity var(--duration-fast) ease;
+}
+.auth-link:hover { opacity: 0.7; }
+
+/* ─── Responsive ─────────────────────────────────── */
+@media (max-width: 1023px) {
+  .auth-page { grid-template-columns: 1fr; }
+  .auth-hero { display: none; }
+}

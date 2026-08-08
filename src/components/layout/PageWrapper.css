@@ -1,0 +1,17 @@
+.page-wrapper {
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Push content below fixed header (84px bar + 16px top offset + 8px breathing room) */
+.page-main.with-header {
+  padding-top: 120px;
+}
+
+/* On mobile, add bottom padding for BottomNav (≈80px) */
+@media (max-width: 767px) {
+  .page-main.with-header {
+    padding-top: 96px;
+    padding-bottom: 96px;
+  }
+}

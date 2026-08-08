@@ -1,0 +1,30 @@
+# 🌿 Skincare Website – Frontend
+
+Welcome to the frontend repository for our **Skincare Website**.
+
+This repository contains the client-side application responsible for delivering a modern, responsive, and user-friendly experience. It includes the user interface, page layouts, reusable components, routing, state management, and integration with the backend APIs.
+
+## Objectives
+
+* Build a clean, responsive, and accessible user interface.
+* Ensure seamless communication with the backend services.
+* Maintain reusable and well-structured components.
+* Deliver a consistent user experience across devices and browsers.
+
+## Collaboration Guidelines
+
+* Create a new feature branch before starting development.
+* Follow the project's folder structure and coding standards.
+* Write clear and meaningful commit messages.
+* Test your changes before creating a pull request.
+* Keep documentation updated whenever new features are added.
+
+## Tech Stack
+
+* Frontend Framework: *(e.g., React.js)*
+* Styling: *(e.g., Tailwind CSS / CSS Modules / Bootstrap)*
+* Routing: *(e.g., React Router)*
+* State Management: *(e.g., Context API / Redux)*
+* API Communication: *(e.g., Axios / Fetch API)*
+
+Thank you for contributing to the project. Let's build a fast, intuitive, and visually appealing skincare platform together!
