@@ -35,7 +35,7 @@ declare global {
   interface Window { Razorpay?: any; }
 }
 
-type PaymentMethodType = 'upi' | 'card' | 'netbanking' | 'cod';
+type PaymentMethodType = 'razorpay' | 'cod';
 
 const AVAILABLE_COUPONS: Record<string, { type: 'percent' | 'flat'; value: number; description: string }> = {
   'LUMIERE10': { type: 'percent', value: 10, description: '10% off on luxury skincare' },
@@ -44,9 +44,7 @@ const AVAILABLE_COUPONS: Record<string, { type: 'percent' | 'flat'; value: numbe
 };
 
 const PAYMENT_OPTIONS: { id: PaymentMethodType; label: string; sub: string; Icon: React.ElementType }[] = [
-  { id: 'upi',        label: 'UPI / QR',         sub: 'Google Pay, PhonePe, Paytm', Icon: Smartphone },
-  { id: 'card',       label: 'Cards',             sub: 'Credit & Debit Cards',       Icon: CreditCard  },
-  { id: 'netbanking', label: 'Net Banking',        sub: 'HDFC, SBI, ICICI & more',   Icon: Building2   },
+  { id: 'razorpay',   label: 'Razor Pay',          sub: 'Cards, UPI, Netbanking',     Icon: ShieldCheck },
   { id: 'cod',        label: 'Cash on Delivery',   sub: 'Pay upon delivery',          Icon: Banknote    },
 ];
 
@@ -57,7 +55,7 @@ export const Checkout: React.FC = () => {
   const [selectedAddressId, setSelectedAddressId] = useState<number | null>(null);
   const [showAddressForm,   setShowAddressForm]   = useState(false);
   const [orderSuccess,      setOrderSuccess]       = useState(false);
-  const [paymentMethod,     setPaymentMethod]      = useState<PaymentMethodType>('upi');
+  const [paymentMethod,     setPaymentMethod]      = useState<PaymentMethodType>('razorpay');
   const [couponInput,       setCouponInput]        = useState('');
   const [appliedCoupon,     setAppliedCoupon]      = useState<string | null>(null);
   const [couponError,       setCouponError]        = useState<string | null>(null);

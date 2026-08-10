@@ -1,0 +1,36 @@
+.announcement-bar {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  padding: 8px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1000;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.announcement-content {
+  text-align: center;
+}
+
+.announcement-close {
+  position: absolute;
+  right: 16px;
+  background: transparent;
+  border: none;
+  color: var(--color-bg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  transition: opacity var(--duration-fast) ease;
+}
+
+.announcement-close:hover {
+  opacity: 0.7;
+}

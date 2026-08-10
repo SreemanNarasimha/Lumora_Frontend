@@ -1,29 +1,29 @@
 :root {
-  /* Color Palette - Organic & Muted */
-  --color-primary: #1A1A1A; /* Charcoal / Off-black */
-  --color-secondary: #666666; /* Slate grey */
-  --color-bg: #FAFAFA; /* Alabaster white */
+  /* Color Palette - Organic & Muted Teal */
+  --color-primary: #1A2F33; /* Deep teal / charcoal */
+  --color-secondary: #4A6063; /* Muted teal grey */
+  --color-bg: #FAFCFC; /* Soft alabaster white */
   --color-surface: #FFFFFF;
-  --color-surface-hover: #EFEFEF; /* Soft pearl / light grey */
+  --color-surface-hover: #EEF3F3; /* Soft pearl */
   
-  --text-primary: #1A1A1A;
-  --text-secondary: #666666;
-  --text-muted: #999999;
+  --text-primary: #1A2F33;
+  --text-secondary: #4A6063;
+  --text-muted: #82999C;
   --text-inverse: #FFFFFF;
   
-  --accent-sage: #8A9A86;
-  --accent-taupe: #B3A394;
+  --accent-sage: #7B968E;
+  --accent-taupe: #B8AFA6;
   --accent-terra: #C28E75;
   
-  --border-general: #E5E5E5;
-  --border-focus: #1A1A1A;
+  --border-general: #E4EBEB;
+  --border-focus: #1A2F33;
 
   --color-error: #D32F2F;
   --color-success: #388E3C;
   --color-warning: #F57C00;
 
   /* Typography */
-  --font-heading: 'Playfair Display', 'Cormorant Garamond', serif;
+  --font-heading: 'Lora', 'Playfair Display', serif;
   --font-body: 'Inter', 'Montserrat', sans-serif;
   --font-button: 'Inter', sans-serif;
   
@@ -54,14 +54,14 @@
 }
 
 :root.dark {
-  /* Minimal dark mode - slightly inverted */
-  --color-bg: #1A1A1A;
-  --color-surface: #242424;
-  --color-surface-hover: #333333;
-  --text-primary: #FAFAFA;
-  --text-secondary: #CCCCCC;
-  --border-general: #333333;
-  --border-focus: #FAFAFA;
+  /* Minimal dark mode - muted deep teal */
+  --color-bg: #0E1618;
+  --color-surface: #152023;
+  --color-surface-hover: #1C292D;
+  --text-primary: #F0F4F4;
+  --text-secondary: #A0B2B5;
+  --border-general: #26363A;
+  --border-focus: #FAFCFC;
 }
 
 body {

@@ -1,0 +1,241 @@
+.ritual-execution-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--color-bg);
+}
+
+/* Header */
+.execution-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-4) var(--space-6);
+  height: 70px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: var(--space-2);
+  border-radius: 50%;
+  transition: background var(--duration-fast) ease, color var(--duration-fast) ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:hover {
+  background: var(--color-surface);
+  color: var(--text-primary);
+}
+
+.execution-title {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.step-counter {
+  color: var(--text-muted);
+}
+
+/* Progress */
+.overall-progress-bar {
+  height: 4px;
+  background: var(--color-surface);
+  width: 100%;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent-sage);
+  transition: width 0.4s ease;
+}
+
+/* Main */
+.execution-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-6);
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+}
+
+.step-content {
+  margin-bottom: var(--space-12);
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+}
+
+.step-instruction {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  color: var(--color-primary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Timer */
+.timer-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.timer-circle {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  /* background conic-gradient handled in React inline style */
+}
+
+.timer-circle-inner {
+  width: 232px;
+  height: 232px;
+  background: var(--color-bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.time-display {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.timer-toggle-btn {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-primary);
+  color: var(--color-bg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+  box-shadow: 0 4px 12px rgba(27, 49, 44, 0.15); /* primary color shadow */
+}
+
+.timer-toggle-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(27, 49, 44, 0.2);
+}
+
+.timer-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+/* Footer */
+.execution-footer {
+  padding: var(--space-6);
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid var(--border-general);
+  height: 90px;
+}
+
+.next-step-btn {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  font-size: 16px;
+}
+
+/* Complete Screen */
+.ritual-completed-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  padding: var(--space-6);
+}
+
+.completion-icon-wrapper {
+  color: var(--accent-sage);
+  margin-bottom: var(--space-6);
+  animation: scale-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes scale-in {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.ritual-completed-screen h2 {
+  margin-bottom: var(--space-2);
+}
+
+.ritual-completed-screen p {
+  margin-bottom: var(--space-8);
+}
+
+/* Loading */
+.ritual-execution-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(27, 49, 44, 0.1);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner {
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 767px) {
+  .step-instruction {
+    font-size: 24px;
+  }
+  
+  .timer-circle {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .timer-circle-inner {
+    width: 192px;
+    height: 192px;
+  }
+  
+  .time-display {
+    font-size: 36px;
+  }
+}

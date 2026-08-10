@@ -17,6 +17,9 @@ import { Addresses }    from './pages/Addresses';
 import { Reviews }      from './pages/Reviews';
 import { About }        from './pages/About';
 import { Contact }      from './pages/Contact';
+import { Discover }     from './pages/Discover';
+import { Journal }      from './pages/Journal';
+import { Rituals }      from './pages/Rituals';
 import { Notifications }from './pages/Notifications';
 import { Settings }     from './pages/Settings';
 import { NotFound }     from './pages/NotFound';
@@ -60,8 +63,15 @@ function App() {
               <Route path="/products/:slug" element={<ProductDetail />} />
               <Route path="/about"    element={<About />} />
               <Route path="/contact"  element={<Contact />} />
+              <Route path="/discover" element={<Discover />} />
 
               {/* ─── Protected ─── */}
+              <Route path="/journal" element={
+                <ProtectedRoute><Journal /></ProtectedRoute>
+              } />
+              <Route path="/rituals" element={
+                <ProtectedRoute><Rituals /></ProtectedRoute>
+              } />
               <Route path="/cart" element={
                 <ProtectedRoute><Cart /></ProtectedRoute>
               } />

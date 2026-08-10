@@ -11,8 +11,10 @@ import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { Skeleton } from '../components/ui/Skeleton';
 import { PageWrapper } from '../components/layout/PageWrapper';
+import { EditorialBanner } from '../components/ui/EditorialBanner';
 import { useWishlist } from '../context/WishlistContext';
 import api from '../api/axios';
+import heroImage from '../assets/hero.png';
 import './Home.css';
 
 interface Product {
@@ -87,31 +89,43 @@ export const Home: React.FC = () => {
   return (
     <PageWrapper showHeader={false}>
       {/* ═══════════ HERO ═══════════ */}
-      <section className="hero-section" aria-labelledby="hero-heading">
+      <section 
+        className="hero-section" 
+        aria-labelledby="hero-heading"
+        style={{
+          backgroundImage: `url(${heroImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'right center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
         <div className="hero-content">
           <Badge variant="secondary" className="hero-badge">New Collection</Badge>
-          <h1 id="hero-heading" className="hero-heading">
+          <h1 id="hero-heading" className="hero-heading" style={{ color: '#1a2332' }}>
             Elevate Your<br />
             Skincare Ritual
           </h1>
-          <p className="hero-subheading">
+          <p className="hero-subheading" style={{ color: '#5a6270' }}>
             Scientifically formulated luxury skincare designed to nourish,
             protect, and illuminate your skin — every single day.
           </p>
           <div className="hero-ctas">
-            <Button size="lg" onClick={() => navigate('/register')}>
+            <Button size="lg" onClick={() => navigate('/register')} style={{ backgroundColor: '#1a2332', color: '#fff', borderColor: '#1a2332' }}>
               Shop Now
             </Button>
-            <Button size="lg" variant="secondary" onClick={() => navigate('/login')}>
+            <Button size="lg" variant="outline" onClick={() => navigate('/login')} style={{ borderColor: '#1a2332', color: '#1a2332' }}>
               Login
             </Button>
           </div>
+          
+          <hr className="hero-divider-line" />
+
           <div className="hero-stats">
-            <div className="hero-stat"><span className="hero-stat-num">50K+</span><span className="hero-stat-label">Happy Customers</span></div>
+            <div className="hero-stat"><span className="hero-stat-num" style={{ color: '#1a2332' }}>50K+</span><span className="hero-stat-label">Happy Customers</span></div>
             <div className="hero-stat-divider" />
-            <div className="hero-stat"><span className="hero-stat-num">4.9★</span><span className="hero-stat-label">Avg Rating</span></div>
+            <div className="hero-stat"><span className="hero-stat-num" style={{ color: '#1a2332' }}>4.9★</span><span className="hero-stat-label">Avg Rating</span></div>
             <div className="hero-stat-divider" />
-            <div className="hero-stat"><span className="hero-stat-num">100%</span><span className="hero-stat-label">Cruelty Free</span></div>
+            <div className="hero-stat"><span className="hero-stat-num" style={{ color: '#1a2332' }}>100%</span><span className="hero-stat-label">Cruelty Free</span></div>
           </div>
         </div>
       </section>
@@ -147,6 +161,17 @@ export const Home: React.FC = () => {
             );
           })}
         </div>
+      </section>
+
+      {/* Editorial Banner */}
+      <section style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 var(--space-outer) var(--space-12)' }}>
+        <EditorialBanner 
+          imageSrc="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&q=80&w=1200"
+          overline="The Ritual"
+          title="Elevate Your Evening Routine"
+          linkText="Shop night care"
+          linkTo="/shop"
+        />
       </section>
 
       {/* ═══════════ BEST SELLERS ═══════════ */}
@@ -421,19 +446,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, wishlisted, onWishli
       <div className="product-card-body">
         <p className="text-label product-brand">{product.brandName}</p>
         <h3 className="text-h3 product-name">{product.name}</h3>
-        <StarRating rating={Math.round(product.rating)} />
-        <div className="product-card-footer">
-          <span className="product-price">₹{product.price.toLocaleString('en-IN')}</span>
-          <Button
-            size="sm"
-            variant={added ? 'secondary' : 'primary'}
-            loading={adding}
-            onClick={handleAddToCart}
-            aria-label={`Add ${product.name} to cart`}
-          >
-            {added ? '✓ Added' : 'Add to Cart'}
-          </Button>
-        </div>
       </div>
     </Card>
   );

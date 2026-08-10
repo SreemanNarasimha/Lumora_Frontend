@@ -10,8 +10,8 @@ import { useNavigate } from 'react-router-dom';
 import './Orders.css';
 
 interface OrderItem {
-  id: number;
-  productNameSnapshot: string;
+  productId: number;
+  productName: string;
   quantity: number;
   pricePerUnit: number;
   totalPrice: number;
@@ -197,9 +197,9 @@ export const Orders: React.FC = () => {
                 <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '20px', color: 'var(--text-primary)', marginBottom: 'var(--space-4)' }}>Items ({selectedOrder.items?.length || 0})</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
                   {selectedOrder.items?.map(item => (
-                    <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div key={item.productId} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <div>
-                        <p className="text-body" style={{ color: 'var(--text-primary)', fontWeight: 500 }}>{item.productNameSnapshot}</p>
+                        <p className="text-body" style={{ color: 'var(--text-primary)', fontWeight: 500 }}>{item.productName}</p>
                         <p className="text-body-sm" style={{ color: 'var(--text-secondary)' }}>Qty: {item.quantity} × ₹{item.pricePerUnit.toLocaleString('en-IN')}</p>
                       </div>
                       <p className="text-body" style={{ color: 'var(--text-primary)', fontWeight: 500 }}>
