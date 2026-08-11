@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '../../api/axios';
-import { Search, Plus, Edit2, Trash2 } from 'lucide-react';
+import { Search, Plus, Edit2, Trash2, Download } from 'lucide-react';
 import { Input } from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
 
@@ -82,6 +82,24 @@ export const AdminUsers: React.FC = () => {
     u?.fullName?.toLowerCase()?.includes(searchTerm.toLowerCase())
   ) : [];
 
+  const handleExportCSV = () => {
+    if (!users || users.length === 0) return alert('No data to export.');
+    const BOM = '\uFEFF';
+    let csv = BOM + 'User ID,Full Name,Email,Joined Date,Role,Loyalty Points\n';
+    users.forEach((u: any) => {
+      // Escape commas in name
+      const name = u.fullName ? `"${u.fullName.replace(/"/g, '""')}"` : '';
+      csv += `${u.userId},${name},${u.email},${new Date(u.createdAt).toLocaleDateString()},${u.role},${u.loyaltyPoints || 0}\n`;
+    });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute('download', `Users_Export_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="admin-page">
       <div className="admin-page-header">
@@ -91,7 +109,7 @@ export const AdminUsers: React.FC = () => {
         </Button>
       </div>
 
-      <div className="admin-page-controls">
+      <div className="admin-page-controls" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Input 
           placeholder="Search by name or email..." 
           leftIcon={<Search size={18} />} 
@@ -99,6 +117,9 @@ export const AdminUsers: React.FC = () => {
           onChange={e => setSearchTerm(e.target.value)}
           style={{ maxWidth: '300px' }}
         />
+        <Button onClick={handleExportCSV} variant="secondary" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <Download size={18} /> Export CSV
+        </Button>
       </div>
 
       <div className="admin-table-container ">
@@ -112,6 +133,7 @@ export const AdminUsers: React.FC = () => {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Joined</th>
+                <th>Loyalty Pts</th>
                 <th>Role</th>
                 <th>Actions</th>
               </tr>
@@ -123,6 +145,7 @@ export const AdminUsers: React.FC = () => {
                   <td>{user.fullName}</td>
                   <td>{user.email}</td>
                   <td>{new Date(user.createdAt).toLocaleDateString()}</td>
+                  <td style={{ color: 'var(--primary)', fontWeight: 'bold' }}>{user.loyaltyPoints || 0}</td>
                   <td>
                     <span style={{
                       padding: '2px 8px', 

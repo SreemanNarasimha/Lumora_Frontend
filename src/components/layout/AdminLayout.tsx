@@ -11,7 +11,9 @@ import {
   Menu,
   X,
   Moon,
-  Sun
+  Sun,
+  Image,
+  Ticket
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -31,6 +33,8 @@ export const AdminLayout: React.FC = () => {
   const navItems = [
     { name: 'Dashboard', path: '/admin', icon: <LayoutDashboard size={20} /> },
     { name: 'Products', path: '/admin/products', icon: <Package size={20} /> },
+    { name: 'Banners', path: '/admin/banners', icon: <Image size={20} /> },
+    { name: 'Coupons', path: '/admin/coupons', icon: <Ticket size={20} /> },
     { name: 'Categories', path: '/admin/categories', icon: <Tags size={20} /> },
     { name: 'Orders', path: '/admin/orders', icon: <ShoppingCart size={20} /> },
     { name: 'Customers', path: '/admin/users', icon: <Users size={20} /> },
@@ -50,7 +54,7 @@ export const AdminLayout: React.FC = () => {
       {/* Sidebar */}
       <aside className={`admin-sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="admin-sidebar-header">
-          <span className="admin-brand">Lumora Admin</span>
+          <span className="admin-brand">LUMORA ADMIN</span>
           <button className="admin-close-btn" onClick={() => setSidebarOpen(false)}>
             <X size={24} />
           </button>

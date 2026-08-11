@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Moon, Sun, Monitor, Palette, Zap, Layers, Type, Lock, Eye, EyeOff } from 'lucide-react';
+import { Moon, Sun, Monitor, Palette, Zap, Layers, Type, Lock, Eye, EyeOff, Download, Trash2 } from 'lucide-react';
 import { PageWrapper } from '../components/layout/PageWrapper';
 import { Input } from '../components/ui/Input';
 import { Button } from '../components/ui/Button';
@@ -41,6 +41,33 @@ export const Settings: React.FC = () => {
       setSecurityError(err.response?.data?.message || 'Failed to update password.');
     } finally {
       setSecurityLoading(false);
+    }
+  };
+
+  const handleExportData = async () => {
+    try {
+      const response = await api.get('/users/me'); // Or a dedicated export endpoint if we had one
+      const blob = new Blob([JSON.stringify(response.data, null, 2)], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute('download', `Lumora_MyData_${new Date().toISOString().split('T')[0]}.json`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (err) {
+      alert('Failed to export data.');
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (window.confirm('Are you ABSOLUTELY sure you want to delete your account? This action cannot be undone and you will lose access to all your order history.')) {
+      try {
+        await api.delete('/users/me/account');
+        alert('Your account has been deleted.');
+        window.location.href = '/login';
+      } catch (err) {
+        alert('Failed to delete account.');
+      }
     }
   };
 
@@ -287,7 +314,39 @@ export const Settings: React.FC = () => {
               </div>
             )}
 
-            {activeTab !== 'Appearance' && activeTab !== 'Security' && (
+            {activeTab === 'Privacy' && (
+              <div className="settings-panel">
+                <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '24px', color: 'var(--text-primary)', marginBottom: 'var(--space-6)' }}>Privacy & Data</h2>
+                
+                <div className="settings-row" style={{ alignItems: 'flex-start' }}>
+                  <div className="settings-row-label">
+                    <Download size={20} strokeWidth={1.5} color="var(--color-primary)" />
+                    <div>
+                      <p>Export Personal Data</p>
+                      <p>Download a copy of your personal data (JSON format).</p>
+                    </div>
+                  </div>
+                  <Button variant="secondary" onClick={handleExportData}>Request Data Export</Button>
+                </div>
+
+                <div className="settings-divider" />
+
+                <div className="settings-row" style={{ alignItems: 'flex-start' }}>
+                  <div className="settings-row-label">
+                    <Trash2 size={20} strokeWidth={1.5} color="var(--color-danger)" />
+                    <div>
+                      <p style={{ color: 'var(--color-danger)' }}>Delete Account</p>
+                      <p>Permanently remove your account and personal info.</p>
+                    </div>
+                  </div>
+                  <Button variant="outline" onClick={handleDeleteAccount} style={{ borderColor: 'var(--color-danger)', color: 'var(--color-danger)' }}>
+                    Delete My Account
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {activeTab !== 'Appearance' && activeTab !== 'Security' && activeTab !== 'Privacy' && (
               <div className="settings-panel" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '300px' }}>
                 <p className="text-body" style={{ color: 'var(--text-secondary)' }}>{activeTab} settings — coming soon.</p>
               </div>

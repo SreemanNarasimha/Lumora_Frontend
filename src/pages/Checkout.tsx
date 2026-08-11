@@ -37,11 +37,7 @@ declare global {
 
 type PaymentMethodType = 'razorpay' | 'cod';
 
-const AVAILABLE_COUPONS: Record<string, { type: 'percent' | 'flat'; value: number; description: string }> = {
-  'LUMIERE10': { type: 'percent', value: 10, description: '10% off on luxury skincare' },
-  'GLOW20':    { type: 'percent', value: 20, description: '20% off special offer' },
-  'WELCOME500':{ type: 'flat',    value: 500, description: '₹500 flat discount for new members' }
-};
+
 
 const PAYMENT_OPTIONS: { id: PaymentMethodType; label: string; sub: string; Icon: React.ElementType }[] = [
   { id: 'razorpay',   label: 'Razor Pay',          sub: 'Cards, UPI, Netbanking',     Icon: ShieldCheck },
@@ -57,7 +53,7 @@ export const Checkout: React.FC = () => {
   const [orderSuccess,      setOrderSuccess]       = useState(false);
   const [paymentMethod,     setPaymentMethod]      = useState<PaymentMethodType>('razorpay');
   const [couponInput,       setCouponInput]        = useState('');
-  const [appliedCoupon,     setAppliedCoupon]      = useState<string | null>(null);
+  const [appliedCoupon,     setAppliedCoupon]      = useState<any | null>(null);
   const [couponError,       setCouponError]        = useState<string | null>(null);
 
   // New address fields
@@ -99,15 +95,25 @@ export const Checkout: React.FC = () => {
     addAddress.mutate({ line1: street, city, state, postalCode: zipCode, country: country || 'India' });
   };
 
+  const validateCouponMutation = useMutation({
+    mutationFn: async (code: string) => {
+      const res = await api.post('/coupons/validate', { code, cartTotal: rawSubtotal });
+      return { ...res.data, code };
+    },
+    onSuccess: (data) => {
+      setAppliedCoupon(data);
+      setCouponError(null);
+    },
+    onError: (err: any) => {
+      setCouponError(err.response?.data || 'Invalid coupon code');
+      setAppliedCoupon(null);
+    }
+  });
+
   const handleApplyCoupon = () => {
     const code = couponInput.trim().toUpperCase();
     if (!code) return;
-    if (AVAILABLE_COUPONS[code]) {
-      setAppliedCoupon(code);
-      setCouponError(null);
-    } else {
-      setCouponError('Invalid code. Try LUMIERE10, GLOW20 or WELCOME500');
-    }
+    validateCouponMutation.mutate(code);
   };
 
   const handleRemoveCoupon = () => {
@@ -118,11 +124,8 @@ export const Checkout: React.FC = () => {
 
   const rawSubtotal = cartItems.reduce((s, i) => s + i.price * i.quantity, 0);
   let discountAmount = 0;
-  if (appliedCoupon && AVAILABLE_COUPONS[appliedCoupon]) {
-    const c = AVAILABLE_COUPONS[appliedCoupon];
-    discountAmount = c.type === 'percent'
-      ? Math.round((rawSubtotal * c.value) / 100)
-      : Math.min(c.value, rawSubtotal);
+  if (appliedCoupon) {
+    discountAmount = appliedCoupon.discountAmount || 0;
   }
   const finalTotal = Math.max(0, rawSubtotal - discountAmount);
 
@@ -132,7 +135,7 @@ export const Checkout: React.FC = () => {
       return (await api.post('/orders/checkout', {
         addressId: selectedAddressId,
         paymentMethod: paymentMethod === 'cod' ? 'COD' : 'RAZORPAY',
-        couponCode: appliedCoupon
+        couponCode: appliedCoupon?.code || null
       })).data;
     },
     onSuccess: (data: any) => {
@@ -419,7 +422,7 @@ export const Checkout: React.FC = () => {
                 {appliedCoupon && (
                   <div className="coupon-applied-tag">
                     <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--accent-sage, #8A9A86)' }}>
-                      ✓ {appliedCoupon} — {AVAILABLE_COUPONS[appliedCoupon].description}
+                      ✓ {appliedCoupon.code} Applied
                     </span>
                     <button className="coupon-remove-btn" onClick={handleRemoveCoupon}>Remove</button>
                   </div>

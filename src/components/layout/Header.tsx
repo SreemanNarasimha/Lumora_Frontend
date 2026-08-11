@@ -113,7 +113,9 @@ export const Header: React.FC = () => {
 
           {/* Center: Logo */}
           <div className="header-zone-center">
-            <Link to="/" className="header-logo" aria-label="Lumora — Home">LUMORA</Link>
+            <Link to="/" className="header-logo" aria-label="Lumora — Home">
+              Lumora
+            </Link>
           </div>
 
           {/* Right: Utilities */}

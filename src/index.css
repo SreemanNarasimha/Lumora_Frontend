@@ -1,22 +1,22 @@
 :root {
-  /* Color Palette - Organic & Muted Teal */
-  --color-primary: #1A2F33; /* Deep teal / charcoal */
-  --color-secondary: #4A6063; /* Muted teal grey */
-  --color-bg: #FAFCFC; /* Soft alabaster white */
+  /* Color Palette - Luxury Gold & Bronze */
+  --color-primary: #5C4033; /* Deep Bronze */
+  --color-secondary: #A67C52; /* Muted Gold/Bronze */
+  --color-bg: #FCFAF8; /* Warm Alabaster */
   --color-surface: #FFFFFF;
-  --color-surface-hover: #EEF3F3; /* Soft pearl */
+  --color-surface-hover: #FDF6ED; /* Soft Pearl/Gold tint */
   
-  --text-primary: #1A2F33;
-  --text-secondary: #4A6063;
-  --text-muted: #82999C;
+  --text-primary: #3E2723; /* Deep Espresso */
+  --text-secondary: #795548; /* Muted Brown */
+  --text-muted: #BCAAA4;
   --text-inverse: #FFFFFF;
   
-  --accent-sage: #7B968E;
-  --accent-taupe: #B8AFA6;
-  --accent-terra: #C28E75;
+  --accent-sage: #D4AF37; /* Metallic Gold */
+  --accent-taupe: #E0C097; /* Light Gold */
+  --accent-terra: #C28E75; /* Warm Terra */
   
-  --border-general: #E4EBEB;
-  --border-focus: #1A2F33;
+  --border-general: #EFEBE9;
+  --border-focus: #8D6E63;
 
   --color-error: #D32F2F;
   --color-success: #388E3C;
@@ -45,8 +45,8 @@
   --radius-input: 0px;
 
   /* Other */
-  --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.03);
-  --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.05);
+  --shadow-subtle: 0 4px 20px rgba(92, 64, 51, 0.05); /* Tinted shadow */
+  --shadow-card: 0 10px 40px rgba(92, 64, 51, 0.08);
   
   --ease-luxury: cubic-bezier(0.25, 1, 0.5, 1);
   --duration-fast: 0.3s;
@@ -54,14 +54,14 @@
 }
 
 :root.dark {
-  /* Minimal dark mode - muted deep teal */
-  --color-bg: #0E1618;
-  --color-surface: #152023;
-  --color-surface-hover: #1C292D;
-  --text-primary: #F0F4F4;
-  --text-secondary: #A0B2B5;
-  --border-general: #26363A;
-  --border-focus: #FAFCFC;
+  /* Luxury Dark Mode - Deep Bronze/Brown */
+  --color-bg: #221712; /* Very dark espresso/bronze */
+  --color-surface: #32231B;
+  --color-surface-hover: #402D24;
+  --text-primary: #FDF8E7; /* Soft golden white */
+  --text-secondary: #D7CCC8;
+  --border-general: #4E3A2F;
+  --border-focus: #D4AF37;
 }
 
 body {

@@ -101,25 +101,8 @@ export const Register: React.FC = () => {
   };
 
   return (
-    <div className="auth-page">
-      {/* Left: image */}
-      <div className="auth-hero" aria-hidden="true">
-        <img
-          src="https://ik.imagekit.io/StringStackVyshu/images/img1.jpg"
-          alt=""
-          className="auth-hero-img"
-        />
-        <div className="auth-hero-overlay">
-          <div className="auth-hero-quote">
-            <p className="text-body-lg" style={{ fontStyle: 'italic', color: 'var(--text-primary)' }}>
-              "Great skin doesn't happen by chance — it happens by commitment."
-            </p>
-            <span className="text-label" style={{ color: 'var(--text-secondary)', marginTop: 'var(--space-3)', display: 'block' }}>— Lumora Philosophy</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Right: auth card */}
+    <div className="auth-page" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+      {/* Auth card */}
       <div className="auth-panel">
         <div className="auth-card">
           <Link to="/" className="auth-logo">LUMORA</Link>

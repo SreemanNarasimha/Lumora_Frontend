@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../api/axios';
 import { useCart } from '../../context/CartContext';
 import { Button } from '../ui/Button';
+import { Plus, Minus } from 'lucide-react';
 
 interface CartItem {
   id: number;
@@ -32,6 +33,17 @@ export const CartDrawer: React.FC = () => {
       await api.delete(`/cart/${itemId}`);
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['cart'] })
+  });
+
+  const updateQty = useMutation({
+    mutationFn: async ({ id, quantity }: { id: number; quantity: number }) => {
+      if (quantity <= 0) {
+        await api.delete(`/cart/${id}`);
+      } else {
+        await api.put(`/cart/${id}`, { quantity });
+      }
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['cart'] }),
   });
 
   const cartTotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -74,7 +86,23 @@ export const CartDrawer: React.FC = () => {
                   <img src={item.imageUrl} alt={item.name} style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '4px' }} />
                   <div style={{ flexGrow: 1 }}>
                     <p className="text-body" style={{ fontWeight: 600 }}>{item.name}</p>
-                    <p className="text-body-sm" style={{ color: 'var(--color-ink-secondary)' }}>Qty: {item.quantity}</p>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px', border: '1px solid var(--color-bg-inset)', borderRadius: '4px', width: 'fit-content' }}>
+                      <button 
+                        onClick={() => updateQty.mutate({ id: item.id, quantity: item.quantity - 1 })}
+                        disabled={updateQty.isPending}
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px 8px', display: 'flex' }}
+                      >
+                        <Minus size={14} />
+                      </button>
+                      <span className="text-body-sm" style={{ minWidth: '16px', textAlign: 'center' }}>{item.quantity}</span>
+                      <button 
+                        onClick={() => updateQty.mutate({ id: item.id, quantity: item.quantity + 1 })}
+                        disabled={updateQty.isPending}
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px 8px', display: 'flex' }}
+                      >
+                        <Plus size={14} />
+                      </button>
+                    </div>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 'var(--space-2)' }}>
                     <p className="text-body" style={{ fontWeight: 600 }}>₹{item.price * item.quantity}</p>
