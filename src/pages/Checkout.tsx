@@ -144,7 +144,7 @@ export const Checkout: React.FC = () => {
         queryClient.invalidateQueries({ queryKey: ['orders'] });
         setOrderSuccess(true);
       } else {
-        const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY_ID as string;
+        const razorpayKey = data.keyId;
         if (!razorpayKey) {
           alert('Payment gateway is not configured. Please contact support.');
           return;
