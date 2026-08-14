@@ -1,12 +1,18 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL;
+let API_URL = import.meta.env.VITE_API_URL || '';
+
+// Ensure we don't append /api twice
+if (API_URL && !API_URL.endsWith('/api')) {
+  API_URL = `${API_URL}/api`;
+}
+
 if (!API_URL) {
   console.warn("VITE_API_URL is not set in the environment variables!");
 }
 
 const api = axios.create({
-  baseURL: API_URL || 'http://localhost:8080/api',
+  baseURL: API_URL,
   withCredentials: true,
 });
 
@@ -17,8 +23,7 @@ api.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry && originalRequest.url !== '/auth/refresh' && originalRequest.url !== '/auth/login') {
       originalRequest._retry = true;
       try {
-        const baseUrl = API_URL || 'http://localhost:8080/api';
-        await axios.post(`${baseUrl}/auth/refresh`, {}, { withCredentials: true });
+        await axios.post(`${API_URL}/auth/refresh`, {}, { withCredentials: true });
         return api(originalRequest);
       } catch (refreshError) {
         window.dispatchEvent(new Event('auth:logout'));
