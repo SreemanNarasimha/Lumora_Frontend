@@ -65,24 +65,24 @@ export const ForgotPassword: React.FC = () => {
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-hero" aria-hidden="true">
-        <img
-          src={heroBg}
-          alt=""
-          className="auth-hero-img"
-        />
-        <div className="auth-hero-overlay">
-          <div className="auth-hero-quote">
-            <p className="text-body-lg" style={{ fontStyle: 'italic', color: 'var(--text-primary)' }}>
-              "A fresh start is just a password away."
-            </p>
-            <span className="text-label" style={{ color: 'var(--text-secondary)', marginTop: 'var(--space-3)', display: 'block' }}>— Lumora Security</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="auth-panel">
+    <div className="auth-page" style={{ 
+      display: 'flex', 
+      justifyContent: 'flex-end', 
+      alignItems: 'center',
+      minHeight: '100vh',
+      paddingRight: '10%',
+      backgroundImage: `url(${heroBg})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }}>
+      <div className="auth-panel" style={{
+        background: 'var(--color-bg)',
+        padding: '2rem',
+        borderRadius: '16px',
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
+        width: '100%',
+        maxWidth: '400px'
+      }}>
         <div className="auth-card">
           <Link to="/" className="auth-logo" aria-label="Go to Lumora homepage">
             LUMORA
