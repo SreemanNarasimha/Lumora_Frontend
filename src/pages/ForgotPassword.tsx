@@ -67,10 +67,10 @@ export const ForgotPassword: React.FC = () => {
   return (
     <div className="auth-page" style={{ 
       display: 'flex', 
-      justifyContent: 'flex-end', 
+      justifyContent: 'flex-start', 
       alignItems: 'center',
       minHeight: '100vh',
-      paddingRight: '10%',
+      paddingLeft: '10%',
       backgroundImage: `url(${heroBg})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center'
