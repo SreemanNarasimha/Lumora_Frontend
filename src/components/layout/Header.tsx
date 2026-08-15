@@ -63,6 +63,10 @@ export const Header: React.FC = () => {
     return location.pathname.startsWith(to.split('?')[0]);
   };
 
+  if (location.pathname === '/') {
+    return null;
+  }
+
   return (
     <>
       <AnnouncementBar />

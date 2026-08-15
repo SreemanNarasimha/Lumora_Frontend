@@ -383,7 +383,7 @@
 
 /* ─── Luxury banner ───────────────────────────── */
 .luxury-banner {
-  padding: 0 var(--space-outer) var(--space-9);
+  padding: var(--space-9) var(--space-outer);
   position: relative;
   z-index: 1;
 }
@@ -490,7 +490,7 @@
 
 /* ─── Newsletter ──────────────────────────────── */
 .newsletter-section {
-  padding: 0 var(--space-outer) var(--space-9);
+  padding: var(--space-9) var(--space-outer);
   position: relative;
   z-index: 1;
 }
