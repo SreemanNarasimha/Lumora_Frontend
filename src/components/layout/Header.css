@@ -58,10 +58,11 @@
 }
 
 /* ─── Nav Links ────────────────────────────────── */
-.header-nav-center {
+.header-nav-left {
   display: flex;
   align-items: center;
-  gap: var(--space-9); /* Approx 32px-40px using luxury spacing */
+  gap: var(--space-6); 
+  margin-left: var(--space-2);
 }
 
 .header-nav-link {

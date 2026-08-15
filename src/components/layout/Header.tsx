@@ -75,12 +75,9 @@ export const Header: React.FC = () => {
           
           {/* Left Zone */}
           <div className="header-zone-left">
-            <Link to="/" className="header-logo hide-mobile" aria-label="Lumora — Home">
-              Lumora
-            </Link>
-            
             {!(location.pathname === '/' && !user) && (
               <>
+                {/* Mobile Icons */}
                 <Link to="/" className="header-icon-btn hide-desktop home-mobile-btn" aria-label="Home">
                   <HomeIcon size={22} strokeWidth={1} />
                 </Link>
@@ -88,9 +85,39 @@ export const Header: React.FC = () => {
                 <button className="header-icon-btn hide-desktop search-mobile-btn" onClick={() => setSearchOpen(true)} aria-label="Search">
                   <Search size={22} strokeWidth={1} />
                 </button>
+
+                {/* Desktop Search */}
+                <div className="header-search-container hide-mobile">
+                  {searchOpen ? (
+                    <div className="header-search-bar active">
+                      <Search size={16} strokeWidth={1} />
+                      <input
+                        type="search"
+                        placeholder="Search..."
+                        value={searchValue}
+                        onChange={e => setSearchValue(e.target.value)}
+                        onKeyDown={handleSearch}
+                        autoFocus
+                        onBlur={() => !searchValue && setSearchOpen(false)}
+                      />
+                    </div>
+                  ) : (
+                    <button className="header-icon-btn" onClick={() => setSearchOpen(true)} aria-label="Search">
+                      <Search size={22} strokeWidth={1} />
+                    </button>
+                  )}
+                </div>
+
+                {/* Desktop Nav Links */}
+                <nav className="header-nav-left hide-mobile">
+                  <Link to="/" className={`header-nav-link ${isActive('/') ? 'active' : ''}`}>Home</Link>
+                  <Link to="/discover" className={`header-nav-link ${isActive('/discover') ? 'active' : ''}`}>Discover</Link>
+                  <Link to="/journal" className={`header-nav-link ${isActive('/journal') ? 'active' : ''}`}>Journal</Link>
+                  <Link to="/rituals" className={`header-nav-link ${isActive('/rituals') ? 'active' : ''}`}>Rituals</Link>
+                </nav>
               </>
             )}
-            
+
             {searchOpen && (
               <div className="mobile-search-bar hide-desktop">
                 <input
@@ -108,16 +135,7 @@ export const Header: React.FC = () => {
 
           {/* Center Zone */}
           <div className="header-zone-center">
-            {!(location.pathname === '/' && !user) && (
-              <nav className="header-nav-center hide-mobile">
-                <Link to="/" className={`header-nav-link ${isActive('/') ? 'active' : ''}`}>Home</Link>
-                <Link to="/discover" className={`header-nav-link ${isActive('/discover') ? 'active' : ''}`}>Discover</Link>
-                <Link to="/journal" className={`header-nav-link ${isActive('/journal') ? 'active' : ''}`}>Journal</Link>
-                <Link to="/rituals" className={`header-nav-link ${isActive('/rituals') ? 'active' : ''}`}>Rituals</Link>
-              </nav>
-            )}
-
-            <Link to="/" className="header-logo hide-desktop" aria-label="Lumora — Home">
+            <Link to="/" className="header-logo" aria-label="Lumora - Home">
               Lumora
             </Link>
           </div>
@@ -133,40 +151,19 @@ export const Header: React.FC = () => {
                 </>
               ) : (
                 <>
-                  <div className="header-search-container hide-mobile">
-                {searchOpen ? (
-                  <div className="header-search-bar active">
-                    <Search size={16} strokeWidth={1} />
-                    <input
-                      type="search"
-                      placeholder="Search..."
-                      value={searchValue}
-                      onChange={e => setSearchValue(e.target.value)}
-                      onKeyDown={handleSearch}
-                      autoFocus
-                      onBlur={() => !searchValue && setSearchOpen(false)}
-                    />
-                  </div>
-                ) : (
-                  <button className="header-icon-btn" onClick={() => setSearchOpen(true)} aria-label="Search">
-                    <Search size={22} strokeWidth={1} />
+                  <button className="header-icon-btn theme-toggle-btn" onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')} aria-label="Toggle theme">
+                    {resolvedTheme === 'dark' ? <Sun size={20} strokeWidth={1} /> : <Moon size={20} strokeWidth={1} />}
                   </button>
-                )}
-              </div>
 
-              <button className="header-icon-btn theme-toggle-btn" onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')} aria-label="Toggle theme">
-                {resolvedTheme === 'dark' ? <Sun size={20} strokeWidth={1} /> : <Moon size={20} strokeWidth={1} />}
-              </button>
+                  <Link to="/profile/wishlist" className="header-icon-btn hide-mobile" aria-label="Wishlist">
+                    <Heart size={20} strokeWidth={1} />
+                    {wishlistCount > 0 && <span className="cart-badge">{wishlistCount}</span>}
+                  </Link>
 
-              <Link to="/profile/wishlist" className="header-icon-btn hide-mobile" aria-label="Wishlist">
-                <Heart size={20} strokeWidth={1} />
-                {wishlistCount > 0 && <span className="cart-badge">{wishlistCount}</span>}
-              </Link>
-
-              <button className="header-icon-btn cart-btn" onClick={openCart} aria-label="Open cart">
-                <ShoppingBag size={20} strokeWidth={1} />
-                {cartCount > 0 && <span className="cart-badge-dot"></span>}
-              </button>
+                  <button className="header-icon-btn cart-btn" onClick={openCart} aria-label="Open cart">
+                    <ShoppingBag size={20} strokeWidth={1} />
+                    {cartCount > 0 && <span className="cart-badge-dot"></span>}
+                  </button>
 
                   <Link to={user ? "/profile" : "/login"} className="header-icon-btn hide-mobile" aria-label="Profile">
                     <User size={20} strokeWidth={1} />
