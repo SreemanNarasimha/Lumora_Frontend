@@ -93,14 +93,8 @@ export const Home: React.FC = () => {
       <section 
         className="hero-section" 
         aria-labelledby="hero-heading"
-        style={{
-          backgroundImage: `url(${heroImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'right center',
-          backgroundRepeat: 'no-repeat'
-        }}
       >
-        <div className="hero-content">
+        <div className="hero-split">
           <Badge variant="secondary" className="hero-badge">New Collection</Badge>
           <h1 id="hero-heading" className="hero-heading" style={{ color: '#1a2332' }}>
             Elevate Your<br />
@@ -129,6 +123,9 @@ export const Home: React.FC = () => {
             <div className="hero-stat"><span className="hero-stat-num" style={{ color: '#1a2332' }}>100%</span><span className="hero-stat-label">Cruelty Free</span></div>
           </div>
         </div>
+        <div className="hero-image-pane">
+          <img src={heroImage} alt="Lumora luxury skincare collection" loading="eager" />
+        </div>
       </section>
 
       {/* ═══════════ FEATURED CATEGORIES ═══════════ */}
@@ -139,7 +136,8 @@ export const Home: React.FC = () => {
             See All <ChevronRight size={16} />
           </button>
         </div>
-        <div className="categories-grid">
+        <div className="categories-scroll-wrapper">
+          <div className="categories-grid">
           {CATEGORIES.map(cat => {
             const Icon = cat.icon;
             return (
@@ -161,6 +159,7 @@ export const Home: React.FC = () => {
               </Card>
             );
           })}
+          </div>
         </div>
       </section>
 
@@ -183,7 +182,7 @@ export const Home: React.FC = () => {
             View All <ChevronRight size={16} />
           </button>
         </div>
-        <div className="products-grid">
+        <div className="products-grid grid-adaptive">
           {isLoading
             ? Array.from({ length: 8 }).map((_, i) => (
                 <div key={i} className="product-card-skeleton">
