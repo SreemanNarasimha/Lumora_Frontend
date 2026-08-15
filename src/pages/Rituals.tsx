@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PageWrapper } from '../components/layout/PageWrapper';
 import { Play, Plus, Clock, ListOrdered, CheckCircle2 } from 'lucide-react';
+import { BackButton } from '../components/ui/BackButton';
 import api from '../api/axios';
 import { useWellnessStore } from '../store/useWellnessStore';
 import { useNavigate } from 'react-router-dom';
@@ -62,6 +63,7 @@ export const Rituals: React.FC = () => {
     <PageWrapper>
       <div className="rituals-page">
         <header className="rituals-header">
+          <div style={{ marginBottom: '16px' }}><BackButton /></div>
           <div className="rituals-header-content">
             <h1 className="text-h1">Rituals</h1>
             <p className="text-body tag-line">Guided routines to start and end your day with intention.</p>

@@ -18,6 +18,27 @@ import api from '../api/axios';
 import heroImage from '../assets/hero.png';
 import './Home.css';
 
+function useGridColumns() {
+  const [cols, setCols] = useState(() => {
+    if (typeof window === 'undefined') return 4;
+    if (window.innerWidth < 768) return 2;
+    if (window.innerWidth < 1024) return 3;
+    return 4;
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) setCols(2);
+      else if (window.innerWidth < 1024) setCols(3);
+      else setCols(4);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return cols;
+}
+
 interface Product {
   productId: number;
   name: string;
@@ -69,6 +90,15 @@ export const Home: React.FC = () => {
   const navigate = useNavigate();
   const [carouselIdx, setCarouselIdx] = useState(0);
   const { isInWishlist, toggleWishlist } = useWishlist();
+  const { user } = useAuth();
+
+  const handleCategoryClick = (catLabel: string) => {
+    if (!user) {
+      navigate('/login');
+    } else {
+      navigate(`/discover?category=${encodeURIComponent(catLabel)}`);
+    }
+  };
 
   const { data, isLoading } = useQuery({
     queryKey: ['products-home'],
@@ -79,8 +109,10 @@ export const Home: React.FC = () => {
     retry: false,
   });
 
+  const cols = useGridColumns();
   const products: Product[] = data?.content ?? [];
-  const bestSellers = products.slice(0, 8);
+  const bestSellersCount = Math.ceil(8 / cols) * cols;
+  const bestSellers = products.slice(0, Math.min(bestSellersCount, products.length));
   const newArrivals = products.slice(4, 12);
 
   const totalSlides = Math.max(1, Math.ceil(newArrivals.length / 4));
@@ -129,14 +161,24 @@ export const Home: React.FC = () => {
       </section>
 
       {/* ═══════════ FEATURED CATEGORIES ═══════════ */}
-      <section className="home-section" aria-labelledby="categories-heading">
-        <div className="section-header">
+      <section className="home-section categories-section" aria-labelledby="categories-heading">
+        <div className="section-header hide-mobile">
           <h2 id="categories-heading" className="text-display-2">Shop by Category</h2>
-          <button className="see-all-btn" onClick={() => navigate('/shop')} aria-label="See all categories">
+          <button className="see-all-btn" onClick={() => navigate(user ? '/discover' : '/login')} aria-label="See all categories">
             See All <ChevronRight size={16} />
           </button>
         </div>
-        <div className="categories-scroll-wrapper">
+        
+        {/* Mobile Horizontal Filter Chips */}
+        <div className="mobile-filter-chips hide-desktop">
+          <button className="mobile-chip" onClick={() => handleCategoryClick('All')}>All</button>
+          {CATEGORIES.map(cat => (
+            <button key={cat.id} className="mobile-chip" onClick={() => handleCategoryClick(cat.label)}>{cat.label}</button>
+          ))}
+          <button className="mobile-chip" onClick={() => handleCategoryClick('Masks')}>Masks</button>
+        </div>
+
+        <div className="categories-scroll-wrapper hide-mobile">
           <div className="categories-grid">
           {CATEGORIES.map(cat => {
             const Icon = cat.icon;
@@ -145,11 +187,11 @@ export const Home: React.FC = () => {
                 key={cat.id}
                 interactive
                 className="category-card"
-                onClick={() => navigate(`/shop?categoryId=${cat.id}`)}
+                onClick={() => handleCategoryClick(cat.label)}
                 role="button"
                 tabIndex={0}
                 aria-label={`Browse ${cat.label}`}
-                onKeyDown={e => e.key === 'Enter' && navigate(`/shop?categoryId=${cat.id}`)}
+                onKeyDown={e => e.key === 'Enter' && handleCategoryClick(cat.label)}
               >
                 <div className="category-icon-wrap" style={{ background: `${cat.color}22` }}>
                   <Icon size={32} color={cat.color} />
@@ -182,9 +224,9 @@ export const Home: React.FC = () => {
             View All <ChevronRight size={16} />
           </button>
         </div>
-        <div className="products-grid grid-adaptive">
+        <div className="products-grid">
           {isLoading
-            ? Array.from({ length: 8 }).map((_, i) => (
+            ? Array.from({ length: bestSellersCount }).map((_, i) => (
                 <div key={i} className="product-card-skeleton">
                   <Skeleton height="280px" radius="lg" />
                   <Skeleton height="20px" width="70%" style={{ marginTop: '12px' }} />

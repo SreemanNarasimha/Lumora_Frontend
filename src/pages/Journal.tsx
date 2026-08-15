@@ -6,6 +6,7 @@ import { useWellnessStore } from '../store/useWellnessStore';
 import api from '../api/axios';
 import './Journal.css';
 import { Flame } from 'lucide-react';
+import { BackButton } from '../components/ui/BackButton';
 
 export interface JournalEntry {
   id: number;
@@ -64,6 +65,7 @@ export const Journal: React.FC = () => {
     <PageWrapper>
       <div className="journal-page">
         <header className="journal-header">
+          <div style={{ marginBottom: '16px' }}><BackButton /></div>
           <div className="journal-header-content">
             <h1 className="text-h1">Journal</h1>
             <p className="text-body tag-line">Your private space for reflection and daily logging.</p>

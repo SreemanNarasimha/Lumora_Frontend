@@ -15,9 +15,28 @@ const NAV_ITEMS = [
 export const BottomNav: React.FC = () => {
   const location = useLocation();
   const { user } = useAuth();
+  const [isVisible, setIsVisible] = React.useState(true);
+  const [lastScrollY, setLastScrollY] = React.useState(0);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        setIsVisible(false); // scrolling down
+      } else {
+        setIsVisible(true); // scrolling up
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
+
+  if (location.pathname === '/checkout') return null;
 
   return (
-    <nav className="bottom-nav" aria-label="Bottom navigation">
+    <nav className={`bottom-nav ${isVisible ? '' : 'bottom-nav-hidden'}`} aria-label="Bottom navigation">
       {NAV_ITEMS.map(item => {
         const Icon = item.icon;
         const targetPath = ('auth' in item && item.auth && !user) ? '/login' : item.to;

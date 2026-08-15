@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PageWrapper } from '../components/layout/PageWrapper';
 import { PlayCircle, BookOpen, Bookmark, Search } from 'lucide-react';
+import { BackButton } from '../components/ui/BackButton';
 import api from '../api/axios';
 import { useWellnessStore } from '../store/useWellnessStore';
 import './Discover.css';
@@ -63,6 +64,7 @@ export const Discover: React.FC = () => {
     <PageWrapper>
       <div className="discover-page">
         <header className="discover-header">
+          <div style={{ marginBottom: '16px' }}><BackButton /></div>
           <h1 className="text-h1">Discover</h1>
           <p className="text-body tag-line">A curated library of mindfulness practices, articles, and guided meditations.</p>
         </header>

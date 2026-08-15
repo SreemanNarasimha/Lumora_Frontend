@@ -2,13 +2,13 @@
 .site-footer {
   background: rgba(255,255,255,0.03);
   border-top: 1px solid var(--border-general);
-  padding: var(--space-9) var(--space-outer) var(--space-7);
+  padding: var(--space-10) var(--space-outer) var(--space-8);
   position: relative;
   z-index: 1;
 }
 .footer-inner {
   display: grid;
-  grid-template-columns: 1.5fr repeat(4, 1fr);
+  grid-template-columns: 1.5fr repeat(3, 1fr);
   gap: var(--space-8);
   margin-bottom: var(--space-8);
 }

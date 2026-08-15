@@ -5,6 +5,7 @@ import { Minus, Plus, Trash2, Heart, ShoppingBag, ArrowRight, Tag } from 'lucide
 import api from '../api/axios';
 import { PageWrapper } from '../components/layout/PageWrapper';
 import { Button } from '../components/ui/Button';
+import { BackButton } from '../components/ui/BackButton';
 import { Skeleton } from '../components/ui/Skeleton';
 import './Cart.css';
 
@@ -56,6 +57,7 @@ export const Cart: React.FC = () => {
   return (
     <PageWrapper>
       <div className="cart-page">
+        <div style={{ marginBottom: '16px' }}><BackButton /></div>
         <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '42px', fontWeight: 400, marginBottom: 'var(--space-8)' }}>Your Cart</h1>
 
         {isLoading ? (

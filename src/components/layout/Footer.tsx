@@ -17,7 +17,6 @@ export const Footer: React.FC = () => {
           </div>
         </div>
         {[
-          { title: 'Shop', links: ['All Products', 'Best Sellers', 'New Arrivals', 'Collections'] },
           { title: 'Company', links: ['About Us', 'Blog', 'Careers', 'Press'] },
           { title: 'Support', links: ['Help Centre', 'Track Order', 'Returns', 'Contact Us'] },
           { title: 'Legal', links: ['Privacy Policy', 'Terms of Service', 'Cookie Policy'] },

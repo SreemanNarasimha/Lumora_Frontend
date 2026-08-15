@@ -120,8 +120,8 @@ export const Shop: React.FC<{ categorySlug?: string }> = ({ categorySlug }) => {
 
           {/* Grid */}
           {isLoading ? (
-            <div className="products-grid grid-adaptive">
-              {Array.from({ length: 9 }).map((_, i) => (
+            <div className="products-grid">
+              {Array.from({ length: 8 }).map((_, i) => (
                 <div key={i}>
                   <Skeleton height="280px" radius="lg" />
                   <Skeleton height="20px" width="70%" style={{ marginTop: '12px' }} />
@@ -151,7 +151,7 @@ export const Shop: React.FC<{ categorySlug?: string }> = ({ categorySlug }) => {
               </Button>
             </div>
           ) : (
-            <div className="products-grid grid-adaptive">
+            <div className="products-grid">
               {products.map(product => {
                 const inWishlist = isInWishlist(product.productId);
                 return (

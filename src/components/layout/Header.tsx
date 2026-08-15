@@ -75,13 +75,17 @@ export const Header: React.FC = () => {
               Lumora
             </Link>
             
-            <Link to="/" className="header-icon-btn hide-desktop home-mobile-btn" aria-label="Home">
-              <HomeIcon size={22} strokeWidth={1} />
-            </Link>
+            {!(location.pathname === '/' && !user) && (
+              <>
+                <Link to="/" className="header-icon-btn hide-desktop home-mobile-btn" aria-label="Home">
+                  <HomeIcon size={22} strokeWidth={1} />
+                </Link>
 
-            <button className="header-icon-btn hide-desktop search-mobile-btn" onClick={() => setSearchOpen(true)} aria-label="Search">
-              <Search size={22} strokeWidth={1} />
-            </button>
+                <button className="header-icon-btn hide-desktop search-mobile-btn" onClick={() => setSearchOpen(true)} aria-label="Search">
+                  <Search size={22} strokeWidth={1} />
+                </button>
+              </>
+            )}
             
             {searchOpen && (
               <div className="mobile-search-bar hide-desktop">
@@ -100,12 +104,14 @@ export const Header: React.FC = () => {
 
           {/* Center Zone */}
           <div className="header-zone-center">
-            <nav className="header-nav-center hide-mobile">
-              <Link to="/" className={`header-nav-link ${isActive('/') ? 'active' : ''}`}>Home</Link>
-              <Link to="/discover" className={`header-nav-link ${isActive('/discover') ? 'active' : ''}`}>Discover</Link>
-              <Link to="/journal" className={`header-nav-link ${isActive('/journal') ? 'active' : ''}`}>Journal</Link>
-              <Link to="/rituals" className={`header-nav-link ${isActive('/rituals') ? 'active' : ''}`}>Rituals</Link>
-            </nav>
+            {!(location.pathname === '/' && !user) && (
+              <nav className="header-nav-center hide-mobile">
+                <Link to="/" className={`header-nav-link ${isActive('/') ? 'active' : ''}`}>Home</Link>
+                <Link to="/discover" className={`header-nav-link ${isActive('/discover') ? 'active' : ''}`}>Discover</Link>
+                <Link to="/journal" className={`header-nav-link ${isActive('/journal') ? 'active' : ''}`}>Journal</Link>
+                <Link to="/rituals" className={`header-nav-link ${isActive('/rituals') ? 'active' : ''}`}>Rituals</Link>
+              </nav>
+            )}
 
             <Link to="/" className="header-logo hide-desktop" aria-label="Lumora — Home">
               Lumora
@@ -116,7 +122,14 @@ export const Header: React.FC = () => {
           <div className="header-zone-right">
             <div className="header-utilities">
               
-              <div className="header-search-container hide-mobile">
+              {location.pathname === '/' && !user ? (
+                <>
+                  <Link to="/login" className="header-nav-link" style={{ textTransform: 'none', letterSpacing: 'normal', fontSize: '14px', fontWeight: 500 }}>Login</Link>
+                  <Link to="/register" className="header-nav-link" style={{ textTransform: 'none', letterSpacing: 'normal', fontSize: '14px', fontWeight: 500 }}>Register</Link>
+                </>
+              ) : (
+                <>
+                  <div className="header-search-container hide-mobile">
                 {searchOpen ? (
                   <div className="header-search-bar active">
                     <Search size={16} strokeWidth={1} />
@@ -151,9 +164,11 @@ export const Header: React.FC = () => {
                 {cartCount > 0 && <span className="cart-badge-dot"></span>}
               </button>
 
-              <Link to={user ? "/profile" : "/login"} className="header-icon-btn hide-mobile" aria-label="Profile">
-                <User size={20} strokeWidth={1} />
-              </Link>
+                  <Link to={user ? "/profile" : "/login"} className="header-icon-btn hide-mobile" aria-label="Profile">
+                    <User size={20} strokeWidth={1} />
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
