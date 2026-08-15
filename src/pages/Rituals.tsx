@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PageWrapper } from '../components/layout/PageWrapper';
-import { Play, Plus, Clock, ListOrdered, Calendar as CalendarIcon, CheckCircle2 } from 'lucide-react';
+import { Play, Plus, Clock, ListOrdered, CheckCircle2 } from 'lucide-react';
 import api from '../api/axios';
 import { useWellnessStore } from '../store/useWellnessStore';
 import { useNavigate } from 'react-router-dom';
@@ -51,7 +51,7 @@ export const Rituals: React.FC = () => {
 
   const morningRitual = rituals.find(r => r.category === 'Morning');
   const eveningRitual = rituals.find(r => r.category === 'Evening');
-  const otherRituals = rituals.filter(r => r.category !== 'Morning' && r.category !== 'Evening');
+
 
   // Determine which ritual to feature based on time of day
   const hour = new Date().getHours();

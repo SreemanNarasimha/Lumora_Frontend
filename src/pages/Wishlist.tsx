@@ -56,7 +56,7 @@ export const Wishlist: React.FC = () => {
             </Button>
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 'var(--space-6)' }}>
+          <div className="products-grid grid-adaptive" style={{ marginTop: 'var(--space-6)' }}>
             {wishlist.map(product => (
               <div key={product.productId} style={{ display: 'flex', flexDirection: 'column' }}>
                 <div style={{ position: 'relative', height: '340px', background: 'var(--color-bg)' }}>

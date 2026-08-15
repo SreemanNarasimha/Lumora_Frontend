@@ -339,7 +339,7 @@ export const Settings: React.FC = () => {
                       <p>Permanently remove your account and personal info.</p>
                     </div>
                   </div>
-                  <Button variant="outline" onClick={handleDeleteAccount} style={{ borderColor: 'var(--color-danger)', color: 'var(--color-danger)' }}>
+                  <Button variant="secondary" onClick={handleDeleteAccount} style={{ borderColor: 'var(--color-danger)', color: 'var(--color-danger)' }}>
                     Delete My Account
                   </Button>
                 </div>

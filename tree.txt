@@ -1,0 +1,134 @@
+Folder PATH listing for volume OS
+Volume serial number is 0000025E 46A3:8CF9
+C:\USERS\NARAS\ONEDRIVE\DESKTOP\LUMORA\LUMORA_FRONTEND\SRC
+¦   App.css
+¦   App.jsx
+¦   App.tsx
+¦   index.css
+¦   main.jsx
+¦   main.tsx
+¦   vite-env.d.ts
+¦   
++---api
+¦       axios.ts
+¦       
++---assets
+¦       hero.png
+¦       heroDash.png
+¦       login.png
+¦       react.svg
+¦       vite.svg
+¦       
++---components
+¦   ¦   AdminRoute.tsx
+¦   ¦   ErrorBoundary.tsx
+¦   ¦   ProtectedRoute.tsx
+¦   ¦   
+¦   +---cart
+¦   ¦       CartDrawer.tsx
+¦   ¦       
+¦   +---common
+¦   +---layout
+¦   ¦       AdminLayout.css
+¦   ¦       AdminLayout.tsx
+¦   ¦       AnnouncementBar.css
+¦   ¦       AnnouncementBar.tsx
+¦   ¦       BottomNav.css
+¦   ¦       BottomNav.tsx
+¦   ¦       Footer.css
+¦   ¦       Footer.tsx
+¦   ¦       Header.css
+¦   ¦       Header.tsx
+¦   ¦       PageWrapper.css
+¦   ¦       PageWrapper.tsx
+¦   ¦       RoutineStepNav.css
+¦   ¦       RoutineStepNav.tsx
+¦   ¦       
+¦   +---ui
+¦           BackButton.css
+¦           BackButton.tsx
+¦           Badge.css
+¦           Badge.tsx
+¦           Button.css
+¦           Button.tsx
+¦           Card.css
+¦           Card.tsx
+¦           Drawer.css
+¦           Drawer.tsx
+¦           EditorialBanner.css
+¦           EditorialBanner.tsx
+¦           Input.css
+¦           Input.tsx
+¦           Skeleton.css
+¦           Skeleton.tsx
+¦           
++---context
+¦       AuthContext.tsx
+¦       CartContext.tsx
+¦       ThemeContext.tsx
+¦       WishlistContext.tsx
+¦       
++---pages
+¦   ¦   About.tsx
+¦   ¦   Addresses.tsx
+¦   ¦   AdminPanel.tsx
+¦   ¦   Auth.css
+¦   ¦   Cart.css
+¦   ¦   Cart.tsx
+¦   ¦   Checkout.css
+¦   ¦   Checkout.tsx
+¦   ¦   Contact.tsx
+¦   ¦   Dashboard.css
+¦   ¦   Dashboard.tsx
+¦   ¦   Discover.css
+¦   ¦   Discover.tsx
+¦   ¦   ForgotPassword.tsx
+¦   ¦   Home.css
+¦   ¦   Home.tsx
+¦   ¦   Journal.css
+¦   ¦   Journal.tsx
+¦   ¦   JournalComposer.tsx
+¦   ¦   JournalHistory.tsx
+¦   ¦   Login.tsx
+¦   ¦   NotFound.tsx
+¦   ¦   Notifications.tsx
+¦   ¦   Orders.css
+¦   ¦   Orders.tsx
+¦   ¦   OrderSuccess.css
+¦   ¦   OrderSuccess.tsx
+¦   ¦   ProductDetail.tsx
+¦   ¦   Profile.css
+¦   ¦   Profile.tsx
+¦   ¦   Register.tsx
+¦   ¦   Reviews.tsx
+¦   ¦   RitualExecution.css
+¦   ¦   RitualExecution.tsx
+¦   ¦   Rituals.css
+¦   ¦   Rituals.tsx
+¦   ¦   Settings.css
+¦   ¦   Settings.tsx
+¦   ¦   Shop.tsx
+¦   ¦   StyleGuide.css
+¦   ¦   StyleGuide.tsx
+¦   ¦   Wishlist.tsx
+¦   ¦   
+¦   +---admin
+¦           AdminBanners.tsx
+¦           AdminCategories.tsx
+¦           AdminCoupons.tsx
+¦           AdminDashboard.css
+¦           AdminDashboard.tsx
+¦           AdminLogin.tsx
+¦           AdminOrders.tsx
+¦           AdminProducts.tsx
+¦           AdminSettings.tsx
+¦           AdminTable.css
+¦           AdminUsers.tsx
+¦           
++---store
+¦       useWellnessStore.ts
+¦       
++---styles
+        global.css
+        tokens.css
+        

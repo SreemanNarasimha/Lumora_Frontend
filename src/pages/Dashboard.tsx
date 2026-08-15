@@ -1,13 +1,12 @@
 import React from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { SlidersHorizontal, Star, Heart, Eye, ShoppingBag, Search, ChevronDown, Check } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Star, Heart, Eye, ShoppingBag, Check } from 'lucide-react';
 import api from '../api/axios';
 import { useWishlist } from '../context/WishlistContext';
 import { PageWrapper } from '../components/layout/PageWrapper';
-import { BackButton } from '../components/ui/BackButton';
+
 import { Card } from '../components/ui/Card';
-import { Skeleton } from '../components/ui/Skeleton';
 import { Badge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
 import { Footer } from '../components/layout/Footer';
@@ -34,28 +33,7 @@ const StarRating: React.FC<{ rating: number }> = ({ rating }) => (
   </div>
 );
 
-const SKIN_TYPES = [
-  { id: null, label: 'All Types' },
-  { id: 2, label: 'Oily' },
-  { id: 3, label: 'Dry' },
-  { id: 4, label: 'Combination' },
-  { id: 5, label: 'Sensitive' },
-  { id: 6, label: 'Normal' }
-];
 
-const CONCERNS = [
-  { id: null, label: 'All Concerns' },
-  { id: 1, label: 'Dryness / Dehydration' },
-  { id: 2, label: 'Dullness / Uneven Tone' },
-  { id: 3, label: 'Sensitivity / Redness' },
-  { id: 4, label: 'Blemishes / Acne-Prone' },
-  { id: 5, label: 'Anti-Aging / Fine Lines' },
-  { id: 6, label: 'Universal / Everyday Care' },
-];
-
-const INGREDIENTS = [
-  'Hyaluronic Acid', 'Vitamin C', 'Niacinamide', 'Salicylic Acid', 'Retinol', 'Peptides'
-];
 
 export const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -65,12 +43,6 @@ export const Dashboard: React.FC = () => {
 
   const [addingId, setAddingId] = React.useState<number | null>(null);
   const [addedId, setAddedId] = React.useState<number | null>(null);
-  const [minPrice, setMinPrice] = React.useState<number>(0);
-  const [maxPrice, setMaxPrice] = React.useState<number>(10000);
-  const [selectedSkinType, setSelectedSkinType] = React.useState<number | null>(null);
-  const [selectedIngredient, setSelectedIngredient] = React.useState<string>('');
-  const [filtersExpanded, setFiltersExpanded] = React.useState<boolean>(false);
-  const [activeDropdown, setActiveDropdown] = React.useState<string | null>(null);
 
   const { data: categories = [] } = useQuery({
     queryKey: ['categories'],

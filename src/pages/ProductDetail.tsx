@@ -18,6 +18,7 @@ export const ProductDetail: React.FC = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { openCart } = useCart();
+  const { isInWishlist, toggleWishlist } = useWishlist();
   const [activeAccordion, setActiveAccordion] = React.useState<string>('details');
   const [addingId, setAddingId] = React.useState<number | null>(null);
 
@@ -91,7 +92,7 @@ export const ProductDetail: React.FC = () => {
     return (
       <PageWrapper>
         <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '2rem 1.5rem', width: '100%' }}>
-          <Skeleton height="600px" radius="none" />
+          <Skeleton style={{ height: "600px" }} />
         </div>
       </PageWrapper>
     );
@@ -252,7 +253,7 @@ export const ProductDetail: React.FC = () => {
 
             {/* Write Review Section */}
             <div style={{ marginTop: 'var(--space-8)' }}>
-              <Button variant="outline" onClick={() => setShowReviewModal(true)}>
+              <Button variant="secondary" onClick={() => setShowReviewModal(true)}>
                 Write a Review
               </Button>
             </div>

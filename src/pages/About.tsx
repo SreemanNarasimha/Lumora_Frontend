@@ -23,7 +23,7 @@ export const About: React.FC = () => {
         </div>
 
         {/* Brand Values */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem', marginBottom: '4rem' }}>
+        <div className="products-grid grid-adaptive" style={{ marginBottom: '4rem' }}>
           <div className="glass-card" style={{ padding: '2rem', borderRadius: '16px' }}>
             <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(138, 154, 134, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
               <Microscope size={24} color="var(--accent-sage, #8A9A86)" />
@@ -66,7 +66,7 @@ export const About: React.FC = () => {
         </div>
 
         {/* Story Section */}
-        <div className="glass-card" style={{ padding: '3rem', borderRadius: '24px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'center' }}>
+        <div className="glass-card page-section-split" style={{ padding: '3rem', borderRadius: '24px', alignItems: 'center' }}>
           <div>
             <span className="text-body-sm" style={{ color: 'var(--accent-sage, #8A9A86)', fontWeight: 600 }}>THE PHILOSOPHY</span>
             <h2 className="text-display-2" style={{ margin: '0.5rem 0 1rem' }}>Skin Intelligence Reimagined</h2>

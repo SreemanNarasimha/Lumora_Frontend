@@ -47,7 +47,7 @@ export const BottomNav: React.FC = () => {
         const Icon = item.icon;
         const isActive = item.to ? (item.to === '/' ? location.pathname === '/' : location.pathname.startsWith(item.to)) : false;
 
-        if (item.action === 'cart') {
+        if ('action' in item && item.action === 'cart') {
           return (
             <button
               key="cart"

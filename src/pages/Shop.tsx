@@ -59,7 +59,7 @@ export const Shop: React.FC<{ categorySlug?: string }> = ({ categorySlug }) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { isInWishlist, toggleWishlist } = useWishlist();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   
   const { data: categories = [] } = useQuery({
     queryKey: ['categories'],
@@ -377,8 +377,6 @@ export const Shop: React.FC<{ categorySlug?: string }> = ({ categorySlug }) => {
       <Drawer
         isOpen={mobileFiltersOpen}
         onClose={() => setMobileFiltersOpen(false)}
-        title="Filters"
-        position="right"
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', paddingBottom: 'var(--space-8)' }}>
           <div>

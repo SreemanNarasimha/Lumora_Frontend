@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '../../api/axios';
-import { DollarSign, ShoppingBag, Users, Package, AlertTriangle, RefreshCcw, Download, TrendingUp, CheckCircle, PackageSearch } from 'lucide-react';
+import { DollarSign, ShoppingBag, Users, Package, AlertTriangle, RefreshCcw, Download, TrendingUp, PackageSearch } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
@@ -14,8 +14,7 @@ interface DashboardStats {
   totalProducts: number;
   lowStockProducts: number;
   pendingRefunds: number;
-  lowStockProducts: number;
-  pendingRefunds: number;
+
   chartData?: any[];
   topProducts?: any[];
 }
@@ -196,7 +195,7 @@ export const AdminDashboard: React.FC = () => {
         ))}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 'var(--space-6)', marginTop: 'var(--space-6)' }}>
+      <div className="page-section-split" style={{ marginTop: 'var(--space-6)' }}>
         
         {/* Left Column */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>

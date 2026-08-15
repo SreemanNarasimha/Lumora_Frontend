@@ -132,7 +132,7 @@ export const Addresses: React.FC = () => {
             </Button>
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 'var(--space-6)' }}>
+          <div className="products-grid grid-adaptive" style={{ marginTop: 'var(--space-6)' }}>
             {addresses.map(addr => (
               <div key={addr.addressId} style={{ padding: 'var(--space-6)', border: addr.isDefault ? '1px solid var(--text-primary)' : '1px solid var(--border-general)', background: addr.isDefault ? 'var(--color-surface-hover)' : 'transparent', position: 'relative' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-4)' }}>

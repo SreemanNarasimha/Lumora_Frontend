@@ -156,7 +156,7 @@ export const AdminCoupons: React.FC = () => {
             <form onSubmit={handleSubmit} className="admin-modal-form">
               <Input label="Coupon Code" value={formData.code} onChange={e => setFormData({...formData, code: e.target.value.toUpperCase()})} required />
               
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div className="page-section-split" style={{ gap: '16px' }}>
                 <div>
                   <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.9em', color: 'var(--text-muted)' }}>Discount Type</label>
                   <select 
@@ -171,7 +171,7 @@ export const AdminCoupons: React.FC = () => {
                 <Input label="Discount Value" type="number" value={formData.discountValue} onChange={e => setFormData({...formData, discountValue: parseFloat(e.target.value)})} required />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div className="page-section-split" style={{ gap: '16px' }}>
                 <Input label="Min Order Amount (₹)" type="number" value={formData.minOrderAmount} onChange={e => setFormData({...formData, minOrderAmount: parseFloat(e.target.value)})} />
                 <Input label="Usage Limit (0 = Unlimited)" type="number" value={formData.usageLimit} onChange={e => setFormData({...formData, usageLimit: parseInt(e.target.value)})} />
               </div>

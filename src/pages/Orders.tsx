@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import api from '../api/axios';
-import { Package, MapPin, ShoppingBag, Download, Eye, X } from 'lucide-react';
+import { ShoppingBag, Package, Download, Eye, X } from 'lucide-react';
 import { Badge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
 import { PageWrapper } from '../components/layout/PageWrapper';
@@ -152,7 +152,7 @@ export const Orders: React.FC = () => {
                     <p style={{ fontFamily: 'var(--font-heading)', fontSize: '32px', color: 'var(--text-primary)', margin: 0, marginTop: 'var(--space-1)' }}>₹{order.totalAmount.toLocaleString('en-IN')}</p>
                   </div>
                   <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
-                    <Button size="sm" variant="outline" leftIcon={<Download size={16} strokeWidth={1} />} onClick={() => handleDownloadInvoice(order.orderId)}>Invoice</Button>
+                    <Button size="sm" variant="secondary" leftIcon={<Download size={16} strokeWidth={1} />} onClick={() => handleDownloadInvoice(order.orderId)}>Invoice</Button>
                     <Button size="sm" variant="secondary" leftIcon={<Eye size={16} strokeWidth={1} />} onClick={() => setSelectedOrder(order)}>View Order</Button>
                   </div>
                 </div>

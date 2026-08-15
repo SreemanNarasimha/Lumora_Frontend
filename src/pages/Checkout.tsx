@@ -5,7 +5,7 @@ import api from '../api/axios';
 import { PageWrapper } from '../components/layout/PageWrapper';
 import { BackButton } from '../components/ui/BackButton';
 import {
-  ShieldCheck, CreditCard, Smartphone, Building2, Banknote,
+  ShieldCheck, Banknote,
   CheckCircle2, Plus, Lock
 } from 'lucide-react';
 import './Checkout.css';

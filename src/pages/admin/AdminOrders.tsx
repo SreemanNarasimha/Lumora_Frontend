@@ -265,7 +265,7 @@ export const AdminOrders: React.FC = () => {
               {/* Shipping Section */}
               <div style={{ padding: '16px', background: 'rgba(255,255,255,0.03)', borderRadius: '8px', marginBottom: '20px' }}>
                 <h3 className="text-h3" style={{ marginBottom: '16px' }}>Shipping & Tracking</h3>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div className="page-section-split" style={{ gap: '16px' }}>
                   <Input label="Courier Name" value={courierName} onChange={e => setCourierName(e.target.value)} />
                   <Input label="Tracking Number" value={trackingNumber} onChange={e => setTrackingNumber(e.target.value)} />
                 </div>
@@ -299,7 +299,7 @@ export const AdminOrders: React.FC = () => {
                     Approve Refund (Restock)
                   </Button>
                   <Button 
-                    variant="outline"
+                    variant="secondary"
                     onClick={() => processRefundMutation.mutate({ id: selectedOrder.orderId, action: 'REJECT', reason: refundReason })}
                     disabled={processRefundMutation.isPending || selectedOrder.refundStatus === 'REFUNDED'}
                   >

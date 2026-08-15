@@ -33,7 +33,7 @@ export const Contact: React.FC = () => {
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '2.5rem' }}>
+        <div className="page-section-split" style={{ gap: '2.5rem' }}>
           {/* Contact Form */}
           <div className="glass-card" style={{ padding: '2.5rem', borderRadius: '24px' }}>
             {submitted ? (

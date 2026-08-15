@@ -157,7 +157,7 @@ export const AdminBanners: React.FC = () => {
               <Input label="Image URL" value={formData.imageUrl} onChange={e => setFormData({...formData, imageUrl: e.target.value})} required />
               <Input label="Link URL" value={formData.linkUrl} onChange={e => setFormData({...formData, linkUrl: e.target.value})} />
               
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-4)' }}>
+              <div className="page-section-split" style={{ gap: 'var(--space-4)' }}>
                 <Input label="Sort Order" type="number" value={formData.sortOrder} onChange={e => setFormData({...formData, sortOrder: parseInt(e.target.value)})} />
                 
                 <div className="input-group" style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '28px' }}>

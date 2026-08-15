@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../api/axios';
 import { useCart } from '../../context/CartContext';
 import { Button } from '../ui/Button';
-import { Plus, Minus } from 'lucide-react';
+import { Drawer } from '../ui/Drawer';
+import { Plus, Minus, X, Trash2, ShoppingBag } from 'lucide-react';
 
 interface CartItem {
   id: number;
@@ -49,33 +50,21 @@ export const CartDrawer: React.FC = () => {
   const cartTotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
   return (
-    <>
-      <div 
-        style={{ 
-          position: 'fixed', 
-          top: 0, 
-          right: 0, 
-          width: '100%', 
-          maxWidth: '400px', 
-          height: '100vh', 
-          backgroundColor: 'var(--color-bg)', 
-          boxShadow: '-4px 0 24px rgba(0,0,0,0.1)',
-          transform: isCartOpen ? 'translateX(0)' : 'translateX(100%)',
-          transition: 'transform 0.3s ease-in-out',
-          zIndex: 1000,
-          display: 'flex',
-          flexDirection: 'column'
-        }}
-      >
-        <div style={{ padding: 'var(--space-4)', borderBottom: '1px solid var(--color-bg-inset)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h2 className="text-h2">Your Cart</h2>
-          <Button variant="ghost" onClick={closeCart}>Close</Button>
+    <Drawer isOpen={isCartOpen} onClose={closeCart}>
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'var(--color-bg)' }}>
+        <div style={{ padding: 'var(--space-4)', borderBottom: '1px solid var(--border-general)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '24px', margin: 0 }}>Your Cart</h2>
+          <button onClick={closeCart} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 'var(--space-2)' }} aria-label="Close cart">
+            <X size={24} color="var(--text-primary)" strokeWidth={1.5} />
+          </button>
         </div>
+        
         <div style={{ flexGrow: 1, padding: 'var(--space-4)', overflowY: 'auto' }}>
           {cartItems.length === 0 ? (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--color-ink-secondary)' }}>
-              <p className="text-body-lg">Your cart is empty.</p>
-              <Button variant="secondary" style={{ marginTop: 'var(--space-4)' }} onClick={() => { closeCart(); navigate('/dashboard'); }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--text-secondary)' }}>
+              <ShoppingBag size={64} strokeWidth={1} style={{ marginBottom: 'var(--space-4)', opacity: 0.5 }} />
+              <p className="text-body-lg" style={{ marginBottom: 'var(--space-6)' }}>Your cart is empty.</p>
+              <Button size="lg" onClick={() => { closeCart(); navigate('/shop'); }}>
                 Continue Shopping
               </Button>
             </div>
@@ -109,9 +98,10 @@ export const CartDrawer: React.FC = () => {
                     <button 
                       onClick={() => removeFromCart.mutate(item.id)}
                       disabled={removeFromCart.isPending}
-                      style={{ background: 'none', border: 'none', color: 'var(--color-terracotta)', cursor: 'pointer', fontSize: '0.875rem' }}
+                      style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', padding: '4px' }}
+                      aria-label="Remove item"
                     >
-                      Remove
+                      <Trash2 size={16} />
                     </button>
                   </div>
                 </div>
@@ -119,26 +109,22 @@ export const CartDrawer: React.FC = () => {
             </div>
           )}
         </div>
+        
         {cartItems.length > 0 && (
-          <div style={{ padding: 'var(--space-4)', borderTop: '1px solid var(--color-bg-inset)' }}>
+          <div style={{ padding: 'var(--space-4)', borderTop: '1px solid var(--border-general)', paddingBottom: 'calc(var(--space-4) + var(--safe-bottom, 0px))' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 'var(--space-4)' }}>
-              <span className="text-h3">Total</span>
-              <span className="text-h3">₹{cartTotal}</span>
+              <span style={{ fontSize: '18px', fontWeight: 500 }}>Subtotal</span>
+              <span style={{ fontSize: '18px', fontWeight: 600 }}>₹{cartTotal.toLocaleString('en-IN')}</span>
             </div>
-            <Button variant="primary" style={{ width: '100%' }} onClick={() => { closeCart(); navigate('/checkout'); }}>
+            <p style={{ fontSize: '12px', color: 'var(--text-secondary)', textAlign: 'center', marginBottom: 'var(--space-4)' }}>
+              Shipping and taxes calculated at checkout.
+            </p>
+            <Button size="lg" style={{ width: '100%' }} onClick={() => { closeCart(); navigate('/checkout'); }}>
               Proceed to Checkout
             </Button>
           </div>
         )}
       </div>
-      
-      {/* Drawer Overlay */}
-      {isCartOpen && (
-        <div 
-          onClick={closeCart}
-          style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh', backgroundColor: 'rgba(27, 26, 23, 0.4)', zIndex: 999 }} 
-        />
-      )}
-    </>
+    </Drawer>
   );
 };

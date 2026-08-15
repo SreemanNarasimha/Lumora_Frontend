@@ -20,7 +20,6 @@ export const AdminProducts: React.FC = () => {
     categoryId: '',
     brandId: '',
     skinTypeId: '',
-    skinTypeId: '',
     stock: '',
     sku: '',
     barcode: '',
@@ -158,7 +157,7 @@ export const AdminProducts: React.FC = () => {
       <div className="admin-page-header">
         <h1 className="text-h2">Products</h1>
         <div style={{ display: 'flex', gap: '8px' }}>
-          <Button variant="outline" onClick={() => document.getElementById('csvUpload')?.click()} disabled={uploadMutation.isPending}>
+          <Button variant="secondary" onClick={() => document.getElementById('csvUpload')?.click()} disabled={uploadMutation.isPending}>
             <Upload size={18} style={{ marginRight: '8px' }}/> {uploadMutation.isPending ? 'Uploading...' : 'Bulk CSV'}
           </Button>
           <input 
@@ -265,7 +264,7 @@ export const AdminProducts: React.FC = () => {
               <Input label="Price (₹)" type="number" step="0.01" value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} required />
               <Input label="Stock" type="number" value={formData.stock} onChange={e => setFormData({...formData, stock: e.target.value})} required />
               
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-4)' }}>
+              <div className="page-section-split" style={{ gap: 'var(--space-4)' }}>
                 <Input label="SKU" value={formData.sku} onChange={e => setFormData({...formData, sku: e.target.value})} />
                 <Input label="Barcode" value={formData.barcode} onChange={e => setFormData({...formData, barcode: e.target.value})} />
               </div>

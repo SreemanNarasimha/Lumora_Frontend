@@ -22,16 +22,6 @@ interface CartItem {
   imageUrl: string;
 }
 
-interface Category {
-  categoryId: number;
-  categoryName: string;
-}
-
-interface Concern {
-  id: number;
-  label: string;
-}
-
 export const Header: React.FC = () => {
   const { openCart } = useCart();
   const { user } = useAuth();

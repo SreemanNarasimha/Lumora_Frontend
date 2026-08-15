@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { PageWrapper } from '../components/layout/PageWrapper';
 import { X, Check, ArrowRight, Play, Pause, RotateCcw } from 'lucide-react';
-import { Ritual, RitualStep } from './Rituals';
+import { Ritual } from './Rituals';
 import api from '../api/axios';
 import { useWellnessStore } from '../store/useWellnessStore';
 import './RitualExecution.css';
@@ -17,7 +17,7 @@ export const RitualExecution: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [completed, setCompleted] = useState(false);
   
-  const incrementRitualsCompleted = useWellnessStore(state => state.incrementRitualsCompleted);
+  const incrementRitualsCompleted = useWellnessStore(state => state.incrementRituals);
 
   // Fallback data if API fails or is not ready
   const DUMMY_RITUAL = {
@@ -109,7 +109,7 @@ export const RitualExecution: React.FC = () => {
 
   if (loading) {
     return (
-      <PageWrapper hideNav>
+      <PageWrapper showHeader={false}>
         <div className="ritual-execution-loading">
           <div className="spinner"></div>
         </div>
@@ -121,7 +121,7 @@ export const RitualExecution: React.FC = () => {
 
   if (completed) {
     return (
-      <PageWrapper hideNav>
+      <PageWrapper showHeader={false}>
         <div className="ritual-completed-screen">
           <div className="completion-icon-wrapper">
             <Check size={48} />
@@ -141,7 +141,7 @@ export const RitualExecution: React.FC = () => {
   const timeProgress = 100 - ((timeLeft / currentStep.durationSeconds) * 100);
 
   return (
-    <PageWrapper hideNav>
+    <PageWrapper showHeader={false}>
       <div className="ritual-execution-page">
         {/* Top Bar */}
         <header className="execution-header">

@@ -108,7 +108,7 @@ export const Home: React.FC = () => {
             <Button size="lg" onClick={() => navigate('/register')} style={{ backgroundColor: '#1a2332', color: '#fff', borderColor: '#1a2332' }}>
               Shop Now
             </Button>
-            <Button size="lg" variant="outline" onClick={() => navigate('/login')} style={{ borderColor: '#1a2332', color: '#1a2332' }}>
+            <Button size="lg" variant="secondary" onClick={() => navigate('/login')} style={{ borderColor: '#1a2332', color: '#1a2332' }}>
               Login
             </Button>
           </div>
@@ -360,23 +360,6 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, wishlisted, onWishlist, onView }) => {
-  const [adding, setAdding] = useState(false);
-  const [added, setAdded] = useState(false);
-
-  const handleAddToCart = async (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setAdding(true);
-    try {
-      await api.post('/cart', { productId: product.productId, quantity: 1 });
-      setAdded(true);
-      setTimeout(() => setAdded(false), 1500);
-    } catch {
-      // silently fail on home page
-    } finally {
-      setAdding(false);
-    }
-  };
-
   return (
     <Card interactive className="product-card" onClick={onView}>
       <div className="product-card-image-wrap">
