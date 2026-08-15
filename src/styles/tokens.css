@@ -1,42 +1,67 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Manrope:wght@400;500;600;700&display=swap');
-
 :root {
-  /* ─── Base ───────────────────────────────────────── */
-  --color-bg: #FFFFFF;
-  --color-surface: #F9FAFB;
-  --color-surface-hover: #F3F4F6;
-  --color-primary: #1A1A1A;
-  --color-secondary: #666666;
-  --color-accent: #8A9A86;
+  /* ─── Color ───────────────────────────────────────── */
+  --ink: #1C1E19;
+  --ink-70: rgba(28, 30, 25, 0.7);
+  --ink-45: rgba(28, 30, 25, 0.45);
+  --ink-15: rgba(28, 30, 25, 0.12);
+  --moss: #47543F;
+  --moss-deep: #333C2D;
+  --porcelain: #F2EFE8;
+  --bone: #E4DED1;
+  --brass: #93713F;
+  --clay: #B98D82;
+
+  /* Legacy aliases for backward compat */
+  --color-bg: var(--porcelain);
+  --color-surface: var(--bone);
+  --color-surface-hover: var(--porcelain);
+  --color-primary: var(--moss);
+  --color-secondary: var(--ink-70);
+  --color-accent: var(--brass);
+  --text-primary: var(--ink);
+  --text-secondary: var(--ink-70);
+  --text-muted: var(--ink-45);
+  --text-main: var(--ink);
+  --color-ink: var(--ink);
+  --color-ink-secondary: var(--ink-70);
+  --color-ink-faint: var(--ink-45);
+  --color-border: var(--ink-15);
+  
+  --color-error: #E94B3C;
+  --color-error-bg: rgba(233, 75, 60, 0.12);
+  --color-success: #36C76C;
+  --color-success-bg: rgba(54, 199, 108, 0.12);
+  --color-warning: #F5A623;
+  --color-warning-bg: rgba(245, 166, 35, 0.12);
+  --color-danger: #E94B3C;
 
   /* ─── Glass surfaces ─────────────────────────────── */
-  --card-fill: rgba(255, 255, 255, 0.9);
-  --card-border: #E5E7EB;
-  --border-general: #E5E7EB;
+  --card-fill: var(--bone);
+  --card-border: var(--ink-15);
+  --border-general: var(--ink-15);
   --card-blur: blur(24px);
-  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.05);
-  --shadow-card-hover: 0 20px 40px rgba(0, 0, 0, 0.10);
-
-  /* ─── Text ───────────────────────────────────────── */
-  --text-primary: #111827;
-  --text-secondary: #4B5563;
-  --text-muted: #6B7280;
+  --shadow-card: none;
+  --shadow-card-hover: none;
 
   /* ─── Radius ─────────────────────────────────────── */
-  --radius-card: 22px;
-  --radius-button: 16px;
-  --radius-input: 18px;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 22px;
+  --r-s: 5px;
+  --r-m: 12px;
+  --r-l: 22px;
+  
+  --radius-card: var(--r-m);
+  --radius-button: 100px;
+  --radius-input: var(--r-s);
+  --radius-sm: var(--r-s);
+  --radius-md: var(--r-m);
+  --radius-lg: var(--r-l);
   --radius-full: 9999px;
 
   /* ─── Typography ─────────────────────────────────── */
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Manrope', -apple-system, sans-serif;
   --font-button: 'Manrope', -apple-system, sans-serif;
 
-  /* ─── Spacing (8px grid) ─────────────────────────── */
+  /* ─── Spacing ─────────────────────────── */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -44,9 +69,7 @@
   --space-5: 24px;
   --space-6: 32px;
   --space-7: 48px;
-  --space-8: 64px;
-  --space-9: 96px;
-  --space-10: 128px;
+  
   --space-outer: 48px;
   --space-section: 96px;
   --space-card-gap: 24px;
@@ -80,47 +103,17 @@
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-left: env(safe-area-inset-left, 0px);
 
-  /* ─── System states ──────────────────────────────── */
-  --color-error: #E94B3C;
-  --color-error-bg: rgba(233, 75, 60, 0.12);
-  --color-success: #36C76C;
-  --color-success-bg: rgba(54, 199, 108, 0.12);
-  --color-warning: #F5A623;
-  --color-warning-bg: rgba(245, 166, 35, 0.12);
-  --color-danger: #E94B3C;
-
   /* ─── Neutral gradients ──────────────────────────── */
-  --gradient-primary: linear-gradient(90deg, #1A1A1A 0%, #4A4A4A 100%);
-  --gradient-hero: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(138, 154, 134, 0.12) 0%, rgba(179, 163, 148, 0.05) 40%, transparent 70%);
-  --gradient-card: linear-gradient(135deg, rgba(138, 154, 134, 0.06) 0%, rgba(179, 163, 148, 0.02) 100%);
-
-  /* ─── Legacy aliases (backward compat while pages migrate) */
-  --color-ink: var(--text-primary);
-  --color-ink-secondary: var(--text-secondary);
-  --color-ink-faint: var(--text-muted);
-  --color-border: var(--border-general);
-  --text-main: var(--text-primary);
+  --gradient-primary: linear-gradient(90deg, var(--moss) 0%, var(--moss-deep) 100%);
+  --gradient-hero: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(71, 84, 63, 0.12) 0%, rgba(51, 60, 45, 0.05) 40%, transparent 70%);
+  --gradient-card: linear-gradient(135deg, rgba(71, 84, 63, 0.06) 0%, rgba(51, 60, 45, 0.02) 100%);
 }
 
 :root.dark {
-  /* ─── Base ───────────────────────────────────────── */
-  --color-bg: #0F0F16;
-  --color-surface: #1C1C24;
-  --color-surface-hover: #2D2D3B;
-  
-  /* ─── Glass surfaces ─────────────────────────────── */
-  --card-fill: rgba(255, 255, 255, 0.08);
-  --card-border: #2D2D3B;
-  --border-general: #2D2D3B;
-  --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.4);
-  --shadow-card-hover: 0 28px 80px rgba(0, 0, 0, 0.5);
-
-  /* ─── Text ───────────────────────────────────────── */
-  --text-primary: #F9FAFB;
-  --text-secondary: #D1D5DB;
-  --text-muted: #9CA3AF;
-  
-  /* ─── Gradients ──────────────────────────────────── */
-  --gradient-hero: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(138, 154, 134, 0.25) 0%, rgba(179, 163, 148, 0.10) 40%, transparent 70%);
-  --gradient-card: linear-gradient(135deg, rgba(138, 154, 134, 0.12) 0%, rgba(179, 163, 148, 0.04) 100%);
+  --porcelain: #1A1C18;
+  --bone: #242621;
+  --ink: #F2EFE8;
+  --ink-70: rgba(242, 239, 232, 0.7);
+  --ink-45: rgba(242, 239, 232, 0.45);
+  --ink-15: rgba(242, 239, 232, 0.12);
 }

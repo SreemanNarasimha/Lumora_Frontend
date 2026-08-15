@@ -47,7 +47,7 @@ button, input, select, textarea {
   -webkit-backdrop-filter: var(--card-blur);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
+  /* Intentionally no shadow */
 }
 
 /* ─────────────────────────────────────────────────────────────────
@@ -57,7 +57,8 @@ button, input, select, textarea {
   font-family: var(--font-display);
   font-size: clamp(48px, 5vw + 1rem, 72px);
   line-height: 1.05;
-  font-weight: 600;
+  font-weight: 500;
+  font-style: italic;
   letter-spacing: -0.02em;
   color: var(--text-primary);
 }
@@ -67,6 +68,7 @@ button, input, select, textarea {
   font-size: clamp(36px, 4vw + 1rem, 48px);
   line-height: 1.1;
   font-weight: 500;
+  font-style: italic;
   letter-spacing: -0.01em;
   color: var(--text-primary);
 }
@@ -76,6 +78,7 @@ button, input, select, textarea {
   font-size: clamp(28px, 3vw + 1rem, 36px);
   line-height: 1.2;
   font-weight: 500;
+  font-style: italic;
   color: var(--text-primary);
 }
 
@@ -84,6 +87,7 @@ button, input, select, textarea {
   font-size: clamp(24px, 2vw + 1rem, 28px);
   line-height: 1.25;
   font-weight: 500;
+  font-style: italic;
   color: var(--text-primary);
 }
 
@@ -176,7 +180,7 @@ button, input, select, textarea {
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   AMBIENT BACKGROUND BLOBS
+   AMBIENT BACKGROUND BLOBS (Botanical Luxury Colors)
 ───────────────────────────────────────────────────────────────── */
 @keyframes float-blob-1 {
   0%, 100% { transform: translate(0, 0) scale(1); }
@@ -203,19 +207,19 @@ button, input, select, textarea {
 }
 .ambient-blob-1 {
   width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(255, 122, 31, 0.22) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(71, 84, 63, 0.08) 0%, transparent 70%);
   top: -120px; left: -100px;
   animation: float-blob-1 18s ease-in-out infinite;
 }
 .ambient-blob-2 {
   width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(184, 156, 255, 0.18) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(147, 113, 63, 0.06) 0%, transparent 70%);
   top: 40%; right: -80px;
   animation: float-blob-2 22s ease-in-out infinite;
 }
 .ambient-blob-3 {
   width: 350px; height: 350px;
-  background: radial-gradient(circle, rgba(216, 164, 127, 0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(51, 60, 45, 0.05) 0%, transparent 70%);
   bottom: -80px; left: 40%;
   animation: float-blob-3 26s ease-in-out infinite;
 }
@@ -238,11 +242,11 @@ button, input, select, textarea {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 122, 31, 0.4);
+  background: var(--ink-15);
   border-radius: var(--radius-full);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 122, 31, 0.7);
+  background: var(--ink-45);
 }
 
 /* ─────────────────────────────────────────────────────────────────
@@ -265,7 +269,7 @@ button, input, select, textarea {
 }
 
 .purple-glow {
-  box-shadow: 0 0 32px rgba(26, 26, 26, 0.2);
+  box-shadow: none; /* Removed heavy shadow per spec */
 }
 
 .section-padding {
@@ -280,8 +284,8 @@ button, input, select, textarea {
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-3) var(--space-5);
-  background: rgba(255, 230, 109, 0.1);
-  border: 1px solid rgba(255, 230, 109, 0.3);
+  background: var(--color-warning-bg);
+  border: 1px solid rgba(245, 166, 35, 0.3);
   border-radius: var(--radius-md);
   color: var(--color-warning);
   font-family: var(--font-button);

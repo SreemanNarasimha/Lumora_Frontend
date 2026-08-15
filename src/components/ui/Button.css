@@ -5,9 +5,9 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  border-radius: var(--radius-sharp);
+  border-radius: 100px; /* pill-shaped */
   font-family: var(--font-button);
-  font-weight: 500;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   cursor: pointer;
@@ -42,17 +42,17 @@
 
 /* ─── Primary ────────────────────────────────────────── */
 .btn-primary {
-  background: var(--text-primary);
-  color: var(--color-bg);
+  background: var(--moss);
+  color: var(--porcelain);
 }
 .btn-primary:hover:not(:disabled) {
-  background: var(--text-secondary);
+  background: var(--ink);
 }
 .btn-primary:active:not(:disabled) {
-  background: #000000;
+  background: #000;
 }
 .btn-primary:focus-visible {
-  outline: 1px solid var(--text-primary);
+  outline: 1px solid var(--moss);
   outline-offset: 2px;
 }
 

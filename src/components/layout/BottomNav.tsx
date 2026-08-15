@@ -1,94 +1,47 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Search, Heart, ShoppingBag, User } from 'lucide-react';
-import { useQuery } from '@tanstack/react-query';
-import api from '../../api/axios';
-import { useCart } from '../../context/CartContext';
+import { Compass, BookOpen, Sparkles, Heart, User } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import './BottomNav.css';
 
-interface CartItem {
-  id: number;
-  productId: number;
-  name: string;
-  price: number;
-  quantity: number;
-  imageUrl: string;
-}
-
 const NAV_ITEMS = [
-  { icon: Home,        label: 'Home',    to: '/' },
-  { icon: Search,      label: 'Search',  to: '/shop' },
-  { icon: Heart,       label: 'Wishlist',to: '/profile/wishlist' },
-  { icon: ShoppingBag, label: 'Cart',    to: null, action: 'cart' as const },
-  { icon: User,        label: 'Profile', to: '/profile' },
+  { icon: Compass,  label: 'Discover', to: '/discover' },
+  { icon: BookOpen, label: 'Journal',  to: '/journal' },
+  { icon: Sparkles, label: 'Rituals',  to: '/rituals' },
+  { icon: Heart,    label: 'Wishlist', to: '/profile/wishlist' },
+  { icon: User,     label: 'Profile',  to: '/profile', auth: true },
 ] as const;
 
 export const BottomNav: React.FC = () => {
   const location = useLocation();
-  const { openCart } = useCart();
   const { user } = useAuth();
 
-  const { data: cartItems = [] } = useQuery({
-    queryKey: ['cart'],
-    queryFn: async () => {
-      if (!user) return [];
-      const response = await api.get('/cart');
-      return response.data as CartItem[];
-    },
-    enabled: !!user
-  });
-
-  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-
   return (
-    <nav className="bottom-nav glass-card" aria-label="Bottom navigation">
+    <nav className="bottom-nav" aria-label="Bottom navigation">
       {NAV_ITEMS.map(item => {
         const Icon = item.icon;
-        const isActive = item.to ? (item.to === '/' ? location.pathname === '/' : location.pathname.startsWith(item.to)) : false;
-
-        if ('action' in item && item.action === 'cart') {
-          return (
-            <button
-              key="cart"
-              className={`bottom-nav-item ${isActive ? 'active' : ''}`}
-              onClick={openCart}
-              aria-label="Open cart"
-              style={{ position: 'relative' }}
-            >
-              <div style={{ position: 'relative' }}>
-                <Icon size={24} />
-                {cartCount > 0 && (
-                  <span style={{
-                    position: 'absolute',
-                    top: '-4px',
-                    right: '-8px',
-                    backgroundColor: 'var(--accent)',
-                    color: 'white',
-                    fontSize: '10px',
-                    fontWeight: 600,
-                    padding: '2px 6px',
-                    borderRadius: '10px',
-                    lineHeight: 1
-                  }}>
-                    {cartCount > 99 ? '99+' : cartCount}
-                  </span>
-                )}
-              </div>
-              <span className="bottom-nav-label">Cart</span>
-            </button>
-          );
+        const targetPath = ('auth' in item && item.auth && !user) ? '/login' : item.to;
+        
+        // Wishlist route starts with /profile but is a separate tab here
+        let isActive = false;
+        if (item.to === '/profile') {
+          isActive = location.pathname === '/profile' || (location.pathname.startsWith('/profile') && !location.pathname.includes('wishlist'));
+        } else {
+          isActive = location.pathname.startsWith(item.to);
         }
 
         return (
           <Link
-            key={item.to!}
-            to={item.to!}
+            key={item.to}
+            to={targetPath}
             className={`bottom-nav-item ${isActive ? 'active' : ''}`}
             aria-label={item.label}
             aria-current={isActive ? 'page' : undefined}
           >
-            <Icon size={24} />
+            <div className="bottom-nav-icon-container">
+              {isActive && <span className="active-dot" />}
+              <Icon size={22} strokeWidth={isActive ? 2 : 1.5} />
+            </div>
             <span className="bottom-nav-label">{item.label}</span>
           </Link>
         );

@@ -214,62 +214,15 @@
   opacity: 0.7;
 }
 
-.cart-badge {
+.cart-badge-dot {
   position: absolute;
-  top: -4px;
-  right: -6px;
-  background-color: var(--color-primary);
-  color: var(--color-bg);
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 600;
-  width: 16px;
-  height: 16px;
+  top: 4px;
+  right: 4px;
+  background-color: var(--brass);
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ─── Mobile Bottom Tab Bar ──────────────────────── */
-.mobile-bottom-tab-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: var(--color-surface);
-  border-top: 1px solid var(--border-general);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: calc(64px + var(--safe-bottom));
-  padding-bottom: var(--safe-bottom);
-  z-index: 1000;
-  backdrop-filter: var(--card-blur);
-  -webkit-backdrop-filter: var(--card-blur);
-  background: var(--card-fill);
-}
-
-.tab-bar-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  color: var(--text-muted);
-  text-decoration: none;
-  font-family: var(--font-body);
-  font-size: 10px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  flex: 1;
-  height: 100%;
-  transition: color var(--duration-fast) ease;
-}
-
-.tab-bar-item:hover,
-.tab-bar-item.active {
-  color: var(--text-primary);
+  border: 1px solid var(--porcelain);
 }
 
 

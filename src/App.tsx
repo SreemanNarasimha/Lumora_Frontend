@@ -45,6 +45,7 @@ import { CartDrawer }       from './components/cart/CartDrawer';
 import { ProtectedRoute }   from './components/ProtectedRoute';
 import { AdminRoute }       from './components/AdminRoute';
 import { AdminLayout }      from './components/layout/AdminLayout';
+import { MainLayout }       from './components/layout/MainLayout';
 
 function App() {
   return (
@@ -58,68 +59,82 @@ function App() {
 
             <Suspense fallback={<div className="flex h-screen items-center justify-center">Loading...</div>}>
               <Routes>
-                {/* ─── Public ─── */}
-                <Route path="/"         element={<Home />} />
-                <Route path="/login"    element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/shop"     element={<Shop />} />
-                <Route path="/cleaner"  element={<Shop categorySlug="cleanser" />} />
-                <Route path="/toner"    element={<Shop categorySlug="toner" />} />
-                <Route path="/essence"  element={<Shop categorySlug="essence" />} />
-                <Route path="/serum"    element={<Shop categorySlug="serum" />} />
-                <Route path="/Ampoules" element={<Shop categorySlug="ampoule" />} />
-                <Route path="/moisturizers" element={<Shop categorySlug="moisturiser" />} />
-                <Route path="/sunscreens"   element={<Shop categorySlug="sunscreen" />} />
-                <Route path="/masks"    element={<Shop categorySlug="mask" />} />
-                <Route path="/products/:slug" element={<ProductDetail />} />
-                <Route path="/about"    element={<About />} />
-                <Route path="/contact"  element={<Contact />} />
-                <Route path="/discover" element={<Discover />} />
+                {/* ─── Main App Shell ─── */}
+                <Route element={<MainLayout />}>
+                  {/* ─── Public ─── */}
+                  <Route path="/"         element={<Home />} />
+                  <Route path="/login"    element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
+                  <Route path="/shop"     element={<Shop />} />
+                  <Route path="/cleaner"  element={<Shop categorySlug="cleanser" />} />
+                  <Route path="/toner"    element={<Shop categorySlug="toner" />} />
+                  <Route path="/essence"  element={<Shop categorySlug="essence" />} />
+                  <Route path="/serum"    element={<Shop categorySlug="serum" />} />
+                  <Route path="/Ampoules" element={<Shop categorySlug="ampoule" />} />
+                  <Route path="/moisturizers" element={<Shop categorySlug="moisturiser" />} />
+                  <Route path="/sunscreens"   element={<Shop categorySlug="sunscreen" />} />
+                  <Route path="/masks"    element={<Shop categorySlug="mask" />} />
+                  <Route path="/products/:slug" element={<ProductDetail />} />
+                  <Route path="/about"    element={<About />} />
+                  <Route path="/contact"  element={<Contact />} />
+                  <Route path="/discover" element={<Discover />} />
 
-                {/* ─── Protected ─── */}
-                <Route path="/journal" element={
-                  <ProtectedRoute><Journal /></ProtectedRoute>
-                } />
-                <Route path="/rituals" element={
-                  <ProtectedRoute><Rituals /></ProtectedRoute>
-                } />
-                <Route path="/cart" element={
-                  <ProtectedRoute><Cart /></ProtectedRoute>
-                } />
-                <Route path="/checkout" element={
-                  <ProtectedRoute><Checkout /></ProtectedRoute>
-                } />
-                <Route path="/order/success" element={
-                  <ProtectedRoute><OrderSuccess /></ProtectedRoute>
-                } />
+                  {/* ─── Protected ─── */}
+                  <Route path="/journal" element={
+                    <ProtectedRoute><Journal /></ProtectedRoute>
+                  } />
+                  <Route path="/rituals" element={
+                    <ProtectedRoute><Rituals /></ProtectedRoute>
+                  } />
+                  <Route path="/cart" element={
+                    <ProtectedRoute><Cart /></ProtectedRoute>
+                  } />
+                  <Route path="/checkout" element={
+                    <ProtectedRoute><Checkout /></ProtectedRoute>
+                  } />
+                  <Route path="/order/success" element={
+                    <ProtectedRoute><OrderSuccess /></ProtectedRoute>
+                  } />
 
-                {/* Profile nested routes */}
-                <Route path="/profile" element={
-                  <ProtectedRoute><Profile /></ProtectedRoute>
-                } />
-                <Route path="/profile/orders" element={
-                  <ProtectedRoute><Orders /></ProtectedRoute>
-                } />
-                <Route path="/profile/wishlist" element={
-                  <ProtectedRoute><Wishlist /></ProtectedRoute>
-                } />
-                <Route path="/profile/addresses" element={
-                  <ProtectedRoute><Addresses /></ProtectedRoute>
-                } />
-                <Route path="/profile/reviews" element={
-                  <ProtectedRoute><Reviews /></ProtectedRoute>
-                } />
-                <Route path="/profile/settings" element={
-                  <ProtectedRoute><Settings /></ProtectedRoute>
-                } />
+                  {/* Profile nested routes */}
+                  <Route path="/profile" element={
+                    <ProtectedRoute><Profile /></ProtectedRoute>
+                  } />
+                  <Route path="/profile/orders" element={
+                    <ProtectedRoute><Orders /></ProtectedRoute>
+                  } />
+                  <Route path="/profile/wishlist" element={
+                    <ProtectedRoute><Wishlist /></ProtectedRoute>
+                  } />
+                  <Route path="/profile/addresses" element={
+                    <ProtectedRoute><Addresses /></ProtectedRoute>
+                  } />
+                  <Route path="/profile/reviews" element={
+                    <ProtectedRoute><Reviews /></ProtectedRoute>
+                  } />
+                  <Route path="/profile/settings" element={
+                    <ProtectedRoute><Settings /></ProtectedRoute>
+                  } />
 
-                {/* Notifications */}
-                <Route path="/notifications" element={
-                  <ProtectedRoute><Notifications /></ProtectedRoute>
-                } />
+                  {/* Notifications */}
+                  <Route path="/notifications" element={
+                    <ProtectedRoute><Notifications /></ProtectedRoute>
+                  } />
 
-                {/* Admin */}
+                  {/* Dashboard */}
+                  <Route path="/dashboard" element={
+                    <ProtectedRoute><Dashboard /></ProtectedRoute>
+                  } />
+
+                  {/* Dev */}
+                  <Route path="/dev/styleguide" element={<StyleGuide />} />
+
+                  {/* 404 */}
+                  <Route path="*" element={<NotFound />} />
+                </Route>
+
+                {/* ─── Admin (Separate Shell) ─── */}
                 <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
                   <Route index element={<AdminDashboard />} />
@@ -131,17 +146,6 @@ function App() {
                   <Route path="users" element={<AdminUsers />} />
                   <Route path="settings" element={<AdminSettings />} />
                 </Route>
-
-                {/* Dashboard */}
-                <Route path="/dashboard" element={
-                  <ProtectedRoute><Dashboard /></ProtectedRoute>
-                } />
-
-                {/* Dev */}
-                <Route path="/dev/styleguide" element={<StyleGuide />} />
-
-                {/* 404 */}
-                <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
           </CartProvider>

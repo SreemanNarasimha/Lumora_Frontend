@@ -156,9 +156,9 @@ export const Header: React.FC = () => {
                 <User size={20} strokeWidth={1} />
               </Link>
 
-              <button className="header-icon-btn" onClick={openCart} aria-label="Open cart">
+              <button className="header-icon-btn cart-btn" onClick={openCart} aria-label="Open cart">
                 <ShoppingBag size={20} strokeWidth={1} />
-                {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+                {cartCount > 0 && <span className="cart-badge-dot"></span>}
               </button>
             </div>
           </div>
@@ -194,25 +194,6 @@ export const Header: React.FC = () => {
         </div>
       </Drawer>
 
-      {/* Mobile Bottom Tab Bar */}
-      <nav className="mobile-bottom-tab-bar hide-desktop">
-        <Link to="/discover" className={`tab-bar-item ${isActive('/discover') ? 'active' : ''}`}>
-          <Search size={20} strokeWidth={isActive('/discover') ? 2 : 1} />
-          <span>Discover</span>
-        </Link>
-        <Link to="/journal" className={`tab-bar-item ${isActive('/journal') ? 'active' : ''}`}>
-          <Menu size={20} strokeWidth={isActive('/journal') ? 2 : 1} /> {/* Using Menu icon as a placeholder for a book/journal icon */}
-          <span>Journal</span>
-        </Link>
-        <Link to="/rituals" className={`tab-bar-item ${isActive('/rituals') ? 'active' : ''}`}>
-          <Heart size={20} strokeWidth={isActive('/rituals') ? 2 : 1} />
-          <span>Rituals</span>
-        </Link>
-        <Link to={user ? "/profile" : "/login"} className={`tab-bar-item ${isActive('/profile') ? 'active' : ''}`}>
-          <User size={20} strokeWidth={isActive('/profile') ? 2 : 1} />
-          <span>Profile</span>
-        </Link>
-      </nav>
     </>
   );
 };

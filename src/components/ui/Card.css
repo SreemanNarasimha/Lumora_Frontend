@@ -1,11 +1,11 @@
 /* Card ─────────────────────────────────────────────── */
 .card {
-  background: var(--card-fill);
+  background: var(--bone);
   backdrop-filter: var(--card-blur);
   -webkit-backdrop-filter: var(--card-blur);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
+  border: 1px solid var(--ink-15);
+  border-radius: var(--radius-md);
+  box-shadow: none;
   transition:
     transform var(--duration-base) var(--ease-luxury),
     box-shadow var(--duration-base) var(--ease-luxury),
