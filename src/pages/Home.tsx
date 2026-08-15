@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { useAuth } from '../context/AuthContext';
 import {
   ShoppingBag, Heart, Eye, Star, ChevronRight,
   FlaskConical, Sun, Droplets, Shield,
