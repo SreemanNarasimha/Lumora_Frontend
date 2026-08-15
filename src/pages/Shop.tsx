@@ -9,6 +9,7 @@ import { Card } from '../components/ui/Card';
 import { Skeleton } from '../components/ui/Skeleton';
 import { Badge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
+import { Drawer } from '../components/ui/Drawer';
 import './Dashboard.css';
 
 interface Product {
@@ -96,6 +97,7 @@ export const Shop: React.FC<{ categorySlug?: string }> = ({ categorySlug }) => {
   const [selectedSkinType, setSelectedSkinType] = React.useState<number | null>(null);
   const [selectedIngredient, setSelectedIngredient] = React.useState<string>('');
   const [filtersExpanded, setFiltersExpanded] = React.useState<boolean>(false);
+  const [mobileFiltersOpen, setMobileFiltersOpen] = React.useState<boolean>(false);
   const [activeDropdown, setActiveDropdown] = React.useState<string | null>(null);
 
   const { data, isLoading, error } = useQuery({
@@ -152,12 +154,32 @@ export const Shop: React.FC<{ categorySlug?: string }> = ({ categorySlug }) => {
 
   return (
     <PageWrapper>
-      <div className="dashboard-layout" onClick={() => setActiveDropdown(null)} style={{ paddingTop: '20px' }}>
+      <div className="dashboard-layout" onClick={() => setActiveDropdown(null)}>
+        {/* Collection Banner */}
+        <div className="collection-banner glass-card" style={{ padding: 'var(--space-8)', marginBottom: 'var(--space-6)', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+          <h1 className="text-display-2">{matchedCategoryId && categories.length ? categories.find((c:any) => c.categoryId.toString() === matchedCategoryId)?.categoryName || 'Shop All' : 'Shop All'}</h1>
+          <p className="text-body-lg" style={{ color: 'var(--text-secondary)', maxWidth: '500px', marginTop: 'var(--space-2)' }}>
+            Discover our complete collection of scientifically formulated skincare, designed for all skin types and concerns.
+          </p>
+        </div>
+
         <main className="dashboard-main" style={{ width: '100%' }}>
           {/* Horizontal Toolbar */}
           <div className="horizontal-toolbar">
             <div className="toolbar-tabs" onClick={(e) => e.stopPropagation()}>
-              <button onClick={() => { setFiltersExpanded(!filtersExpanded); setActiveDropdown(null); }} style={{ fontWeight: 600 }}>
+              <button 
+                className="hide-mobile"
+                onClick={() => { setFiltersExpanded(!filtersExpanded); setActiveDropdown(null); }} 
+                style={{ fontWeight: 600 }}
+              >
+                <SlidersHorizontal size={14} style={{ marginRight: '4px' }} />
+                Filters
+              </button>
+              <button 
+                className="show-mobile"
+                onClick={() => { setMobileFiltersOpen(true); }} 
+                style={{ fontWeight: 600, display: 'none' /* handled in css */ }}
+              >
                 <SlidersHorizontal size={14} style={{ marginRight: '4px' }} />
                 Filters
               </button>
@@ -236,6 +258,12 @@ export const Shop: React.FC<{ categorySlug?: string }> = ({ categorySlug }) => {
             </div>
             
             <div className="toolbar-meta">
+              <select className="sort-dropdown" style={{ marginRight: 'var(--space-4)' }} aria-label="Sort products">
+                <option value="featured">Featured</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="rating">Top Rated</option>
+              </select>
               {activeFiltersCount > 0 && (
                 <div className="active-filters-pill">
                   {activeFiltersCount} Filter{activeFiltersCount > 1 ? 's' : ''} Active
@@ -247,7 +275,7 @@ export const Shop: React.FC<{ categorySlug?: string }> = ({ categorySlug }) => {
 
           {/* Grid */}
           {isLoading ? (
-            <div className="products-grid">
+            <div className="products-grid grid-adaptive">
               {Array.from({ length: 9 }).map((_, i) => (
                 <div key={i}>
                   <Skeleton height="280px" radius="lg" />
@@ -283,7 +311,7 @@ export const Shop: React.FC<{ categorySlug?: string }> = ({ categorySlug }) => {
               </Button>
             </div>
           ) : (
-            <div className="products-grid">
+            <div className="products-grid grid-adaptive">
               {products.map(product => {
                 const inWishlist = isInWishlist(product.productId);
                 return (
@@ -344,6 +372,67 @@ export const Shop: React.FC<{ categorySlug?: string }> = ({ categorySlug }) => {
           )}
         </main>
       </div>
+
+      {/* Mobile Filters Drawer */}
+      <Drawer
+        isOpen={mobileFiltersOpen}
+        onClose={() => setMobileFiltersOpen(false)}
+        title="Filters"
+        position="right"
+      >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', paddingBottom: 'var(--space-8)' }}>
+          <div>
+            <h4 style={{ marginBottom: 'var(--space-3)' }}>Concern</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+              {CONCERNS.map(con => (
+                <label key={con.id || 'all'} className="filter-radio-label">
+                  <input type="radio" name="concern-mobile" checked={selectedConcern === con.id} onChange={() => setSelectedConcern(con.id)} />
+                  {con.label}
+                </label>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h4 style={{ marginBottom: 'var(--space-3)' }}>Skin Type</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+              {SKIN_TYPES.map(st => (
+                <label key={st.id || 'all'} className="filter-radio-label">
+                  <input type="radio" name="skintype-mobile" checked={selectedSkinType === st.id} onChange={() => setSelectedSkinType(st.id)} />
+                  {st.label}
+                </label>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h4 style={{ marginBottom: 'var(--space-3)' }}>Ingredient</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+              <label className="filter-radio-label">
+                <input type="radio" name="ingredient-mobile" checked={selectedIngredient === ''} onChange={() => setSelectedIngredient('')} />
+                All Ingredients
+              </label>
+              {INGREDIENTS.map(ing => (
+                <label key={ing} className="filter-radio-label">
+                  <input type="radio" name="ingredient-mobile" checked={selectedIngredient === ing} onChange={() => setSelectedIngredient(ing)} />
+                  {ing}
+                </label>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h4 style={{ marginBottom: 'var(--space-3)' }}>Price</h4>
+            <input type="range" min="0" max="10000" step="100" value={maxPrice} onChange={(e) => setMaxPrice(Number(e.target.value))} className="price-slider" style={{ marginBottom: '12px' }} />
+            <div className="price-inputs" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <input type="number" value={minPrice} onChange={(e) => setMinPrice(Number(e.target.value))} min="0" style={{ width: '80px' }} />
+              <span>-</span>
+              <input type="number" value={maxPrice} onChange={(e) => setMaxPrice(Number(e.target.value))} min="0" style={{ width: '80px' }} />
+            </div>
+          </div>
+          
+          <Button onClick={() => setMobileFiltersOpen(false)} style={{ marginTop: 'var(--space-4)' }}>
+            Show {products.length} Results
+          </Button>
+        </div>
+      </Drawer>
     </PageWrapper>
   );
 };

@@ -177,8 +177,10 @@
 /* ─── Grid ─────────────────────────────────────── */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
   gap: var(--space-6);
+}
+.products-grid:not(.grid-adaptive) {
+  grid-template-columns: repeat(5, 1fr);
 }
 
 /* ─── Product Card Redesign ────────────────────── */
@@ -329,8 +331,10 @@
 }
 
 /* ─── Mobile Adjustments ───────────────────────── */
+.show-mobile { display: none !important; }
+
 @media (max-width: 1200px) {
-  .products-grid {
+  .products-grid:not(.grid-adaptive) {
     grid-template-columns: repeat(4, 1fr);
   }
 }
@@ -339,14 +343,21 @@
     flex-direction: column;
     align-items: flex-start;
   }
-  .products-grid {
+  .products-grid:not(.grid-adaptive) {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 @media (max-width: 768px) {
-  .products-grid {
+  .products-grid:not(.grid-adaptive) {
     grid-template-columns: repeat(2, 1fr);
   }
+  
+  /* Filter drawer handling */
+  .hide-mobile { display: none !important; }
+  .show-mobile { display: flex !important; }
+  
+  /* Hide the inline desktop filter drop-downs on mobile */
+  .filter-dropdown-group { display: none !important; }
 }
 
 /* ─── Dashboard Hero & Categories ──────────────── */
