@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
-  Search, Heart, ShoppingBag, User, Menu, X, Sun, Moon
+  Search, Heart, ShoppingBag, User, Sun, Moon, Home as HomeIcon
 } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import api from '../../api/axios';
@@ -10,7 +10,6 @@ import { useAuth } from '../../context/AuthContext';
 import { useWishlist } from '../../context/WishlistContext';
 import { useTheme } from '../../context/ThemeContext';
 import { AnnouncementBar } from './AnnouncementBar';
-import { Drawer } from '../ui/Drawer';
 import './Header.css';
 
 interface CartItem {
@@ -32,7 +31,6 @@ export const Header: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const { data: cartItems = [] } = useQuery({
     queryKey: ['cart'],
@@ -42,10 +40,8 @@ export const Header: React.FC = () => {
       return response.data as CartItem[];
     },
     enabled: !!user,
-    refetchInterval: 5000 // live count polling for now, or just rely on invalidations
+    refetchInterval: 5000
   });
-
-
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -55,8 +51,6 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-
-
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && searchValue.trim()) {
       navigate(`/shop?search=${encodeURIComponent(searchValue.trim())}`);
@@ -64,7 +58,10 @@ export const Header: React.FC = () => {
     }
   };
 
-  const isActive = (to: string) => location.pathname.startsWith(to.split('?')[0]);
+  const isActive = (to: string) => {
+    if (to === '/') return location.pathname === '/';
+    return location.pathname.startsWith(to.split('?')[0]);
+  };
 
   return (
     <>
@@ -72,78 +69,75 @@ export const Header: React.FC = () => {
       <header className={`header-root ${scrolled ? 'header-scrolled' : ''}`} role="banner">
         <div className="header-inner editorial-header">
           
-          {/* Left: Search Zone & Desktop Nav */}
+          {/* Left Zone */}
           <div className="header-zone-left">
-            <button 
-              className="header-icon-btn hide-desktop" 
-              onClick={() => setIsDrawerOpen(true)} 
-              aria-label="Open menu"
-            >
-              <Menu size={22} strokeWidth={1} />
-            </button>
-            <div className="header-search-container hide-mobile">
-              {searchOpen ? (
-                <div className="header-search-bar active">
-                  <Search size={16} strokeWidth={1} />
-                  <input
-                    type="search"
-                    placeholder="Search..."
-                    value={searchValue}
-                    onChange={e => setSearchValue(e.target.value)}
-                    onKeyDown={handleSearch}
-                    autoFocus
-                    onBlur={() => !searchValue && setSearchOpen(false)}
-                  />
-                </div>
-              ) : (
-                <button className="header-icon-btn" onClick={() => setSearchOpen(true)} aria-label="Search">
-                  <Search size={22} strokeWidth={1} />
-                </button>
-              )}
-            </div>
+            <Link to="/" className="header-logo hide-mobile" aria-label="Lumora — Home">
+              Lumora
+            </Link>
+            
+            <Link to="/" className="header-icon-btn hide-desktop home-mobile-btn" aria-label="Home">
+              <HomeIcon size={22} strokeWidth={1} />
+            </Link>
 
-            <nav className="header-nav-left hide-mobile">
-              <Link to="/dashboard" className={`header-nav-link ${isActive('/dashboard') ? 'active' : ''}`}>Home</Link>
-              <div className="header-nav-dropdown">
-                <Link to="/shop" className={`header-nav-link ${isActive('/shop') ? 'active' : ''}`}>Shop</Link>
-                <div className="mega-menu">
-                  <div className="mega-menu-col">
-                    <h4>Categories</h4>
-                    <ul>
-                      <li><Link to="/shop?category=skincare">Skincare</Link></li>
-                      <li><Link to="/shop?category=serums">Serums</Link></li>
-                      <li><Link to="/shop?category=cleansers">Cleansers</Link></li>
-                      <li><Link to="/shop?category=moisturizers">Moisturizers</Link></li>
-                    </ul>
-                  </div>
-                  <div className="mega-menu-col">
-                    <h4>Skin Concerns</h4>
-                    <ul>
-                      <li><Link to="/shop?concern=anti-aging">Anti-Aging</Link></li>
-                      <li><Link to="/shop?concern=hydration">Hydration</Link></li>
-                      <li><Link to="/shop?concern=brightening">Brightening</Link></li>
-                      <li><Link to="/shop?concern=acne">Acne & Blemishes</Link></li>
-                    </ul>
-                  </div>
-                </div>
+            <button className="header-icon-btn hide-desktop search-mobile-btn" onClick={() => setSearchOpen(true)} aria-label="Search">
+              <Search size={22} strokeWidth={1} />
+            </button>
+            
+            {searchOpen && (
+              <div className="mobile-search-bar hide-desktop">
+                <input
+                  type="search"
+                  placeholder="Search..."
+                  value={searchValue}
+                  onChange={e => setSearchValue(e.target.value)}
+                  onKeyDown={handleSearch}
+                  autoFocus
+                  onBlur={() => !searchValue && setSearchOpen(false)}
+                />
               </div>
+            )}
+          </div>
+
+          {/* Center Zone */}
+          <div className="header-zone-center">
+            <nav className="header-nav-center hide-mobile">
+              <Link to="/" className={`header-nav-link ${isActive('/') ? 'active' : ''}`}>Home</Link>
               <Link to="/discover" className={`header-nav-link ${isActive('/discover') ? 'active' : ''}`}>Discover</Link>
               <Link to="/journal" className={`header-nav-link ${isActive('/journal') ? 'active' : ''}`}>Journal</Link>
               <Link to="/rituals" className={`header-nav-link ${isActive('/rituals') ? 'active' : ''}`}>Rituals</Link>
             </nav>
-          </div>
 
-          {/* Center: Logo */}
-          <div className="header-zone-center">
-            <Link to="/" className="header-logo" aria-label="Lumora — Home">
+            <Link to="/" className="header-logo hide-desktop" aria-label="Lumora — Home">
               Lumora
             </Link>
           </div>
 
-          {/* Right: Utilities */}
+          {/* Right Zone */}
           <div className="header-zone-right">
             <div className="header-utilities">
-              <button className="header-icon-btn hide-mobile" onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')} aria-label="Toggle theme">
+              
+              <div className="header-search-container hide-mobile">
+                {searchOpen ? (
+                  <div className="header-search-bar active">
+                    <Search size={16} strokeWidth={1} />
+                    <input
+                      type="search"
+                      placeholder="Search..."
+                      value={searchValue}
+                      onChange={e => setSearchValue(e.target.value)}
+                      onKeyDown={handleSearch}
+                      autoFocus
+                      onBlur={() => !searchValue && setSearchOpen(false)}
+                    />
+                  </div>
+                ) : (
+                  <button className="header-icon-btn" onClick={() => setSearchOpen(true)} aria-label="Search">
+                    <Search size={22} strokeWidth={1} />
+                  </button>
+                )}
+              </div>
+
+              <button className="header-icon-btn theme-toggle-btn" onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')} aria-label="Toggle theme">
                 {resolvedTheme === 'dark' ? <Sun size={20} strokeWidth={1} /> : <Moon size={20} strokeWidth={1} />}
               </button>
 
@@ -152,48 +146,18 @@ export const Header: React.FC = () => {
                 {wishlistCount > 0 && <span className="cart-badge">{wishlistCount}</span>}
               </Link>
 
-              <Link to={user ? "/profile" : "/login"} className="header-icon-btn hide-mobile" aria-label="Profile">
-                <User size={20} strokeWidth={1} />
-              </Link>
-
               <button className="header-icon-btn cart-btn" onClick={openCart} aria-label="Open cart">
                 <ShoppingBag size={20} strokeWidth={1} />
                 {cartCount > 0 && <span className="cart-badge-dot"></span>}
               </button>
+
+              <Link to={user ? "/profile" : "/login"} className="header-icon-btn hide-mobile" aria-label="Profile">
+                <User size={20} strokeWidth={1} />
+              </Link>
             </div>
           </div>
         </div>
       </header>
-
-      {/* Mobile Drawer Navigation */}
-      <Drawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
-        <div className="mobile-drawer-nav">
-          <div className="mobile-drawer-header">
-            <span className="header-logo">Lumora</span>
-            <button className="header-icon-btn" onClick={() => setIsDrawerOpen(false)} aria-label="Close menu">
-              <X size={24} strokeWidth={1} />
-            </button>
-          </div>
-          
-          <div className="mobile-drawer-links">
-            <Link to="/dashboard" className="mobile-drawer-link" onClick={() => setIsDrawerOpen(false)}>Home</Link>
-            <Link to="/shop" className="mobile-drawer-link" onClick={() => setIsDrawerOpen(false)}>Shop</Link>
-            <Link to="/discover" className="mobile-drawer-link" onClick={() => setIsDrawerOpen(false)}>Discover</Link>
-            <Link to="/journal" className="mobile-drawer-link" onClick={() => setIsDrawerOpen(false)}>Journal</Link>
-            <Link to="/rituals" className="mobile-drawer-link" onClick={() => setIsDrawerOpen(false)}>Rituals</Link>
-          </div>
-
-          <div className="mobile-drawer-utilities">
-            <button className="header-icon-btn" onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')} aria-label="Toggle theme">
-              {resolvedTheme === 'dark' ? <Sun size={24} strokeWidth={1} /> : <Moon size={24} strokeWidth={1} />}
-            </button>
-            <Link to={user ? "/profile" : "/login"} className="header-icon-btn" onClick={() => setIsDrawerOpen(false)} aria-label="Profile">
-              <User size={24} strokeWidth={1} />
-            </Link>
-          </div>
-        </div>
-      </Drawer>
-
     </>
   );
 };
