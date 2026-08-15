@@ -59,6 +59,27 @@
   --duration-base: 300ms;
   --duration-slow: 450ms;
 
+  /* ─── Breakpoints & Safe Areas ───────────────────── */
+  --bp-sm-phone: 320px;
+  --bp-std-phone: 360px;
+  --bp-lg-phone: 390px;
+  --bp-lg-phone-plus: 412px;
+  --bp-xl-phone: 480px;
+  --bp-foldable: 600px;
+  --bp-tablet-port: 720px;
+  --bp-tablet: 768px;
+  --bp-ipad: 820px;
+  --bp-split: 900px;
+  --bp-sm-laptop: 1024px;
+  --bp-laptop: 1280px;
+  --bp-desktop: 1440px;
+  --bp-ultra: 1920px;
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+
   /* ─── System states ──────────────────────────────── */
   --color-error: #E94B3C;
   --color-error-bg: rgba(233, 75, 60, 0.12);
