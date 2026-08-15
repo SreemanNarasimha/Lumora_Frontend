@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Star, Heart, ShoppingBag, Truck, ShieldCheck, RefreshCcw } from 'lucide-react';
+import { Star, Heart, ShoppingBag, Truck, ShieldCheck, RefreshCcw, ChevronDown, ChevronUp } from 'lucide-react';
 import api from '../api/axios';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
@@ -10,14 +10,15 @@ import { BackButton } from '../components/ui/BackButton';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 import { Skeleton } from '../components/ui/Skeleton';
-import './Dashboard.css'; // Reusing some styles
+import './Dashboard.css';
+import './ProductDetail.css';
 
 export const ProductDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { openCart } = useCart();
-  const { isInWishlist, toggleWishlist } = useWishlist();
+  const [activeAccordion, setActiveAccordion] = React.useState<string>('details');
   const [addingId, setAddingId] = React.useState<number | null>(null);
 
   // Review states
@@ -115,18 +116,32 @@ export const ProductDetail: React.FC = () => {
       <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 var(--space-outer) 6rem', width: '100%' }}>
         <BackButton label="Back to Collection" />
         
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: 'var(--space-8)', marginTop: 'var(--space-6)' }}>
+        <div className="product-detail-layout">
           {/* Left: Image */}
-          <div style={{ overflow: 'hidden', padding: 'var(--space-8)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-surface-hover)' }}>
-            {product.images?.[0] ? (
-              <img 
-                src={product.images[0]} 
-                alt={product.name} 
-                style={{ width: '100%', height: 'auto', maxHeight: '600px', objectFit: 'contain' }} 
-              />
-            ) : (
-              <ShoppingBag size={120} color="var(--text-muted)" opacity={0.2} strokeWidth={1} />
-            )}
+          <div>
+            <div className="product-gallery-desktop">
+              {product.images?.length > 0 ? (
+                product.images.map((img: string, idx: number) => (
+                  <img key={idx} src={img} alt={`${product.name} - view ${idx + 1}`} loading="lazy" />
+                ))
+              ) : (
+                <div style={{ width: '100%', aspectRatio: '3/4', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-surface-hover)' }}>
+                  <ShoppingBag size={80} color="var(--text-muted)" opacity={0.2} strokeWidth={1} />
+                </div>
+              )}
+            </div>
+            
+            <div className="product-gallery-mobile">
+              {product.images?.length > 0 ? (
+                product.images.map((img: string, idx: number) => (
+                  <img key={idx} src={img} alt={`${product.name} - view ${idx + 1}`} loading="lazy" />
+                ))
+              ) : (
+                <div style={{ width: '100%', aspectRatio: '4/5', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-surface-hover)', flexShrink: 0 }}>
+                  <ShoppingBag size={80} color="var(--text-muted)" opacity={0.2} strokeWidth={1} />
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Right: Details */}
@@ -153,7 +168,7 @@ export const ProductDetail: React.FC = () => {
               {product.description}
             </p>
 
-            <div style={{ display: 'flex', gap: 'var(--space-4)', marginBottom: 'var(--space-8)' }}>
+            <div className="desktop-actions" style={{ display: 'flex', gap: 'var(--space-4)', marginBottom: 'var(--space-8)' }}>
               <Button 
                 size="lg" 
                 style={{ flex: 1 }} 
@@ -180,6 +195,43 @@ export const ProductDetail: React.FC = () => {
               >
                 <Heart size={20} strokeWidth={1.5} fill={inWishlist ? 'var(--text-primary)' : 'none'} color="var(--text-primary)" />
               </Button>
+            </div>
+
+            {/* Accordions */}
+            <div style={{ borderTop: '1px solid var(--border-general)', marginBottom: 'var(--space-8)' }}>
+              <div className="accordion-item">
+                <button className="accordion-header" onClick={() => setActiveAccordion(activeAccordion === 'details' ? '' : 'details')}>
+                  Product Details
+                  {activeAccordion === 'details' ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                </button>
+                {activeAccordion === 'details' && (
+                  <div className="accordion-content">
+                    {product.description}
+                  </div>
+                )}
+              </div>
+              <div className="accordion-item">
+                <button className="accordion-header" onClick={() => setActiveAccordion(activeAccordion === 'ingredients' ? '' : 'ingredients')}>
+                  Key Ingredients
+                  {activeAccordion === 'ingredients' ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                </button>
+                {activeAccordion === 'ingredients' && (
+                  <div className="accordion-content">
+                    Formulated with clinical grade actives. Refer to packaging for full ingredient list.
+                  </div>
+                )}
+              </div>
+              <div className="accordion-item">
+                <button className="accordion-header" onClick={() => setActiveAccordion(activeAccordion === 'how' ? '' : 'how')}>
+                  How to Use
+                  {activeAccordion === 'how' ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                </button>
+                {activeAccordion === 'how' && (
+                  <div className="accordion-content">
+                    Apply a small amount to clean, dry skin. Massage gently until fully absorbed. Use morning and night.
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Features / Guarantees */}
@@ -255,6 +307,25 @@ export const ProductDetail: React.FC = () => {
             </div>
           </div>
         )}
+      </div>
+
+      {/* Mobile Sticky Actions */}
+      <div className="mobile-sticky-actions">
+        <Button 
+          style={{ flex: 1 }} 
+          onClick={handleAddToCart}
+          loading={addingId === product.productId}
+        >
+          Add to Cart - ₹{product.price.toLocaleString('en-IN')}
+        </Button>
+        <Button 
+          variant="secondary" 
+          style={{ padding: '0 var(--space-4)' }}
+          onClick={() => toggleWishlist(product)}
+          aria-label={inWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
+        >
+          <Heart size={20} strokeWidth={1.5} fill={inWishlist ? 'var(--text-primary)' : 'none'} color="var(--text-primary)" />
+        </Button>
       </div>
     </PageWrapper>
   );

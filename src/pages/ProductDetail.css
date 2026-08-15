@@ -1,0 +1,98 @@
+/* ─── Layout ───────────────────────────────────── */
+.product-detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-9);
+  margin-top: var(--space-6);
+  align-items: flex-start;
+}
+
+/* ─── Image Gallery ────────────────────────────── */
+.product-gallery-desktop {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2);
+}
+.product-gallery-desktop img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  background: var(--color-surface-hover);
+}
+/* If only one image, make it full width */
+.product-gallery-desktop img:only-child {
+  grid-column: 1 / -1;
+}
+
+.product-gallery-mobile {
+  display: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 calc(var(--space-outer) * -1);
+}
+.product-gallery-mobile::-webkit-scrollbar { display: none; }
+
+.product-gallery-mobile img {
+  scroll-snap-align: start;
+  width: 100%;
+  flex-shrink: 0;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+}
+
+/* ─── Accordion ────────────────────────────────── */
+.accordion-item {
+  border-bottom: 1px solid var(--border-general);
+}
+.accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-4) 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: left;
+}
+.accordion-content {
+  padding-bottom: var(--space-4);
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ─── Mobile Sticky Actions ────────────────────── */
+.mobile-sticky-actions {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border-general);
+  padding: var(--space-3) var(--space-4);
+  z-index: 100;
+  padding-bottom: calc(var(--space-3) + var(--safe-bottom, 0px));
+}
+
+@media (max-width: 1024px) {
+  .product-detail-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}
+
+@media (max-width: 768px) {
+  .product-gallery-desktop { display: none; }
+  .product-gallery-mobile { display: flex; }
+  .mobile-sticky-actions { display: flex; gap: var(--space-3); }
+  .desktop-actions { display: none !important; }
+}
