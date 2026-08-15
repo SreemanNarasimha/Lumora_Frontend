@@ -207,7 +207,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* Editorial Banner */}
-      <section style={{ maxWidth: '1440px', margin: '0 auto', padding: 'var(--space-9) var(--space-outer) var(--space-12)' }}>
+      <section style={{ maxWidth: '1440px', margin: '0 auto', padding: 'var(--space-8) var(--space-outer) var(--space-12)' }}>
         <EditorialBanner 
           imageSrc="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&q=80&w=1200"
           overline="The Ritual"

@@ -1,6 +1,6 @@
 /* ─── Shared layout ───────────────────────────── */
 .home-section {
-  padding: var(--space-9) var(--space-outer);
+  padding: var(--space-8) var(--space-outer);
   position: relative;
   z-index: 1;
 }
@@ -48,7 +48,7 @@
   align-items: flex-start;
   justify-content: center;
   text-align: left;
-  padding: var(--space-9) var(--space-outer);
+  padding: var(--space-8) var(--space-outer);
   padding-right: var(--space-8);
   max-width: 720px;
   margin-left: auto; /* Push towards center on ultra wide */
@@ -383,7 +383,7 @@
 
 /* ─── Luxury banner ───────────────────────────── */
 .luxury-banner {
-  padding: var(--space-9) var(--space-outer);
+  padding: var(--space-8) var(--space-outer);
   position: relative;
   z-index: 1;
 }
@@ -432,7 +432,7 @@
 
 /* ─── Why Lumora ──────────────────────────────── */
 .why-lumora {
-  padding: var(--space-9) var(--space-outer);
+  padding: var(--space-8) var(--space-outer);
   text-align: center;
   position: relative;
   z-index: 1;
@@ -441,7 +441,7 @@
 .trust-badges-row {
   display: flex;
   justify-content: center;
-  gap: var(--space-9);
+  gap: var(--space-8);
   flex-wrap: wrap;
 }
 .trust-badge {
@@ -490,7 +490,7 @@
 
 /* ─── Newsletter ──────────────────────────────── */
 .newsletter-section {
-  padding: var(--space-9) var(--space-outer);
+  padding: var(--space-8) var(--space-outer);
   position: relative;
   z-index: 1;
 }
@@ -526,7 +526,7 @@
 .site-footer {
   background: rgba(255,255,255,0.03);
   border-top: 1px solid var(--border-general);
-  padding: var(--space-9) var(--space-outer) var(--space-7);
+  padding: var(--space-8) var(--space-outer) var(--space-7);
   position: relative;
   z-index: 1;
 }
