@@ -78,7 +78,7 @@ export const Header: React.FC = () => {
             {!(location.pathname === '/' && !user) && (
               <>
                 {/* Mobile Icons */}
-                <Link to="/" className="header-icon-btn hide-desktop home-mobile-btn" aria-label="Home">
+                <Link to="/dashboard" className="header-icon-btn hide-desktop home-mobile-btn" aria-label="Home">
                   <HomeIcon size={22} strokeWidth={1} />
                 </Link>
 
@@ -110,7 +110,7 @@ export const Header: React.FC = () => {
 
                 {/* Desktop Nav Links */}
                 <nav className="header-nav-left hide-mobile">
-                  <Link to="/" className={`header-nav-link ${isActive('/') ? 'active' : ''}`}>Home</Link>
+                  <Link to="/dashboard" className={`header-nav-link ${isActive('/dashboard') ? 'active' : ''}`}>Home</Link>
                   <Link to="/discover" className={`header-nav-link ${isActive('/discover') ? 'active' : ''}`}>Discover</Link>
                   <Link to="/journal" className={`header-nav-link ${isActive('/journal') ? 'active' : ''}`}>Journal</Link>
                   <Link to="/rituals" className={`header-nav-link ${isActive('/rituals') ? 'active' : ''}`}>Rituals</Link>
