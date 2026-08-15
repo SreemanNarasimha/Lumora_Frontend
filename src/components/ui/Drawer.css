@@ -30,8 +30,10 @@
   z-index: 201;
   transform: translateX(100%);
   transition: transform var(--duration-base) var(--ease-luxury);
-  overflow-y: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 .drawer-panel.open {
   transform: translateX(0);

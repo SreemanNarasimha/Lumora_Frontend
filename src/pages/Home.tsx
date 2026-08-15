@@ -170,15 +170,6 @@ export const Home: React.FC = () => {
           </button>
         </div>
         
-        {/* Mobile Horizontal Filter Chips */}
-        <div className="mobile-filter-chips hide-desktop">
-          <button className="mobile-chip" onClick={() => handleCategoryClick('All')}>All</button>
-          {CATEGORIES.map(cat => (
-            <button key={cat.id} className="mobile-chip" onClick={() => handleCategoryClick(cat.label)}>{cat.label}</button>
-          ))}
-          <button className="mobile-chip" onClick={() => handleCategoryClick('Masks')}>Masks</button>
-        </div>
-
         <div className="categories-scroll-wrapper hide-mobile">
           <div className="categories-grid">
           {CATEGORIES.map(cat => {

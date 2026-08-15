@@ -457,4 +457,13 @@
     width: 64px;
     height: 64px;
   }
+  
+  .dashboard-categories-scroll {
+    justify-content: flex-start;
+    padding: 0 var(--space-4);
+  }
+
+  .dashboard-products-grid > .product-card:nth-child(5) {
+    display: none;
+  }
 }

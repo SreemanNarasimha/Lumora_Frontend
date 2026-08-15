@@ -159,7 +159,7 @@ export const Dashboard: React.FC = () => {
           return (
             <section key={cat.categoryId} style={{ marginTop: 'var(--space-8)', padding: '0 1.5rem' }}>
               <h2 className="text-h3" style={{ marginBottom: 'var(--space-4)' }}>Newly Added - {cat.categoryName}</h2>
-              <div className="products-grid">
+              <div className="products-grid dashboard-products-grid">
                 {catProducts.map((product: Product) => {
                   const inWishlist = isInWishlist(product.productId);
                   return (

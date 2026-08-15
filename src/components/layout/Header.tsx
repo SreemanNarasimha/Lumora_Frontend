@@ -162,7 +162,7 @@ export const Header: React.FC = () => {
 
                   <button className="header-icon-btn cart-btn" onClick={openCart} aria-label="Open cart">
                     <ShoppingBag size={20} strokeWidth={1} />
-                    {cartCount > 0 && <span className="cart-badge-dot"></span>}
+                    {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
                   </button>
 
                   <Link to={user ? "/profile" : "/login"} className="header-icon-btn hide-mobile" aria-label="Profile">
