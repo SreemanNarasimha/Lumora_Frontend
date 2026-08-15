@@ -35,14 +35,16 @@
 /* ─── Hero ────────────────────────────────────── */
 .hero-section {
   min-height: calc(100vh - 84px);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: stretch;
+  display: flex;
+  align-items: center;
+  position: relative;
   border-bottom: 1px solid var(--border-general);
   background: #fbf8f5; /* Subtle warm background behind the hero */
 }
 
 .hero-split {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -51,13 +53,15 @@
   padding: var(--space-8) var(--space-outer);
   padding-right: var(--space-8);
   max-width: 720px;
-  margin-left: auto; /* Push towards center on ultra wide */
 }
 
 .hero-image-pane {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  position: relative;
+  z-index: 1;
   overflow: hidden;
 }
 
@@ -603,7 +607,6 @@
 }
 @media (max-width: 1023px) {
   .hero-section {
-    grid-template-columns: 45fr 55fr;
     min-height: auto;
   }
   .hero-split {
@@ -612,9 +615,6 @@
     text-align: left;
     align-items: flex-start;
     max-width: 100%;
-  }
-  .hero-image-pane {
-    height: 100%;
   }
   .hero-badge {
     align-self: center;
@@ -645,6 +645,7 @@
     align-items: center;
   }
   .hero-image-pane {
+    position: relative;
     height: 320px;
     width: 100%;
   }
