@@ -4,6 +4,7 @@ import { Mail, User, Phone, Lock, Eye, EyeOff, KeyRound, CheckCircle2 } from 'lu
 import api from '../api/axios';
 import { Input } from '../components/ui/Input';
 import { Button } from '../components/ui/Button';
+import loginBg from '../assets/login.png';
 import './Auth.css';
 
 export const Register: React.FC = () => {
@@ -101,9 +102,22 @@ export const Register: React.FC = () => {
   };
 
   return (
-    <div className="auth-page" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+    <div className="auth-page" style={{ 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      minHeight: '100vh',
+      backgroundImage: `url(${loginBg})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }}>
       {/* Auth card */}
-      <div className="auth-panel">
+      <div className="auth-panel" style={{
+        background: 'var(--color-bg)',
+        padding: '2rem',
+        borderRadius: '16px',
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
+      }}>
         <div className="auth-card">
           <Link to="/" className="auth-logo">LUMORA</Link>
 

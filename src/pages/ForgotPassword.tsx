@@ -4,6 +4,7 @@ import { Mail, Lock, KeyRound, Eye, EyeOff } from 'lucide-react';
 import { Input } from '../components/ui/Input';
 import { Button } from '../components/ui/Button';
 import api from '../api/axios';
+import heroBg from '../assets/hero.png';
 import './Auth.css';
 
 export const ForgotPassword: React.FC = () => {
@@ -67,7 +68,7 @@ export const ForgotPassword: React.FC = () => {
     <div className="auth-page">
       <div className="auth-hero" aria-hidden="true">
         <img
-          src="https://ik.imagekit.io/StringStackVyshu/images/img2.jpg"
+          src={heroBg}
           alt=""
           className="auth-hero-img"
         />
