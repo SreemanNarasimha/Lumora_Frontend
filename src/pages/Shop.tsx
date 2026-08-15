@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { SlidersHorizontal, Star, Heart, Eye, ShoppingBag, Search, ChevronDown, Check } from 'lucide-react';
+import { Star, Heart, Eye, ShoppingBag, Search, Check } from 'lucide-react';
 import api from '../api/axios';
 import { useWishlist } from '../context/WishlistContext';
 import { PageWrapper } from '../components/layout/PageWrapper';
@@ -9,7 +9,7 @@ import { Card } from '../components/ui/Card';
 import { Skeleton } from '../components/ui/Skeleton';
 import { Badge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
-import { Drawer } from '../components/ui/Drawer';
+import { FilterBar } from '../components/shop/FilterBar';
 import './Dashboard.css';
 
 interface Product {
@@ -32,34 +32,11 @@ const StarRating: React.FC<{ rating: number }> = ({ rating }) => (
   </div>
 );
 
-const SKIN_TYPES = [
-  { id: null, label: 'All Types' },
-  { id: 2, label: 'Oily' },
-  { id: 3, label: 'Dry' },
-  { id: 4, label: 'Combination' },
-  { id: 5, label: 'Sensitive' },
-  { id: 6, label: 'Normal' }
-];
-
-const CONCERNS = [
-  { id: null, label: 'All Concerns' },
-  { id: 1, label: 'Dryness / Dehydration' },
-  { id: 2, label: 'Dullness / Uneven Tone' },
-  { id: 3, label: 'Sensitivity / Redness' },
-  { id: 4, label: 'Blemishes / Acne-Prone' },
-  { id: 5, label: 'Anti-Aging / Fine Lines' },
-  { id: 6, label: 'Universal / Everyday Care' },
-];
-
-const INGREDIENTS = [
-  'Hyaluronic Acid', 'Vitamin C', 'Niacinamide', 'Salicylic Acid', 'Retinol', 'Peptides'
-];
-
 export const Shop: React.FC<{ categorySlug?: string }> = ({ categorySlug }) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { isInWishlist, toggleWishlist } = useWishlist();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   
   const { data: categories = [] } = useQuery({
     queryKey: ['categories'],
@@ -76,41 +53,32 @@ export const Shop: React.FC<{ categorySlug?: string }> = ({ categorySlug }) => {
     return matched ? matched.categoryId.toString() : '';
   }, [categorySlug, categories, searchParams]);
 
-  const concernIdParam = searchParams.get('concernId') || '';
   const searchQuery = searchParams.get('search')?.toLowerCase() || '';
-
-  const [selectedCategory, setSelectedCategory] = React.useState(matchedCategoryId);
-  const [selectedConcern, setSelectedConcern] = React.useState<number | null>(concernIdParam ? Number(concernIdParam) : null);
-  
-  React.useEffect(() => {
-    setSelectedCategory(matchedCategoryId);
-  }, [matchedCategoryId]);
-
-  React.useEffect(() => {
-    setSelectedConcern(concernIdParam ? Number(concernIdParam) : null);
-  }, [concernIdParam]);
 
   const [addingId, setAddingId] = React.useState<number | null>(null);
   const [addedId, setAddedId] = React.useState<number | null>(null);
-  const [minPrice, setMinPrice] = React.useState<number>(0);
-  const [maxPrice, setMaxPrice] = React.useState<number>(10000);
-  const [selectedSkinType, setSelectedSkinType] = React.useState<number | null>(null);
-  const [selectedIngredient, setSelectedIngredient] = React.useState<string>('');
-  const [filtersExpanded, setFiltersExpanded] = React.useState<boolean>(false);
-  const [mobileFiltersOpen, setMobileFiltersOpen] = React.useState<boolean>(false);
-  const [activeDropdown, setActiveDropdown] = React.useState<string | null>(null);
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ['products', selectedCategory, selectedSkinType, selectedConcern, selectedIngredient, minPrice, maxPrice],
+    queryKey: ['products', searchParams.toString(), matchedCategoryId],
     queryFn: async () => {
       const params = new URLSearchParams();
       params.append('size', '100');
-      if (selectedCategory) params.append('categoryId', selectedCategory);
-      if (selectedSkinType) params.append('skinTypeId', selectedSkinType.toString());
-      if (selectedConcern) params.append('concernId', selectedConcern.toString());
-      if (selectedIngredient) params.append('ingredient', selectedIngredient);
-      if (minPrice > 0) params.append('minPrice', minPrice.toString());
-      if (maxPrice < 10000) params.append('maxPrice', maxPrice.toString());
+      
+      const categoryId = searchParams.get('categoryId') || matchedCategoryId;
+      if (categoryId) params.append('categoryId', categoryId);
+      
+      searchParams.getAll('skinTypeId').forEach(val => params.append('skinTypeId', val));
+      searchParams.getAll('concernId').forEach(val => params.append('concernId', val));
+      searchParams.getAll('ingredient').forEach(val => params.append('ingredient', val));
+      
+      const minPrice = searchParams.get('minPrice');
+      if (minPrice && minPrice !== '0') params.append('minPrice', minPrice);
+      
+      const maxPrice = searchParams.get('maxPrice');
+      if (maxPrice && maxPrice !== '10000') params.append('maxPrice', maxPrice);
+
+      const sortBy = searchParams.get('sortBy');
+      if (sortBy) params.append('sortBy', sortBy);
       
       const response = await api.get(`/products?${params.toString()}`);
       return response.data;
@@ -145,133 +113,10 @@ export const Shop: React.FC<{ categorySlug?: string }> = ({ categorySlug }) => {
     );
   }
 
-  let activeFiltersCount = 0;
-  if (selectedCategory) activeFiltersCount++;
-  if (selectedSkinType) activeFiltersCount++;
-  if (selectedConcern) activeFiltersCount++;
-  if (selectedIngredient) activeFiltersCount++;
-  if (minPrice > 0 || maxPrice < 10000) activeFiltersCount++;
-
   return (
     <PageWrapper>
-      <div className="dashboard-layout" onClick={() => setActiveDropdown(null)}>
-        {/* Collection Banner */}
-        <div className="collection-banner glass-card" style={{ padding: 'var(--space-8)', marginBottom: 'var(--space-6)', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-          <h1 className="text-display-2">{matchedCategoryId && categories.length ? categories.find((c:any) => c.categoryId.toString() === matchedCategoryId)?.categoryName || 'Shop All' : 'Shop All'}</h1>
-          <p className="text-body-lg" style={{ color: 'var(--text-secondary)', maxWidth: '500px', marginTop: 'var(--space-2)' }}>
-            Discover our complete collection of scientifically formulated skincare, designed for all skin types and concerns.
-          </p>
-        </div>
-
         <main className="dashboard-main" style={{ width: '100%' }}>
-          {/* Horizontal Toolbar */}
-          <div className="horizontal-toolbar">
-            <div className="toolbar-tabs" onClick={(e) => e.stopPropagation()}>
-              <button 
-                className="hide-mobile"
-                onClick={() => { setFiltersExpanded(!filtersExpanded); setActiveDropdown(null); }} 
-                style={{ fontWeight: 600 }}
-              >
-                <SlidersHorizontal size={14} style={{ marginRight: '4px' }} />
-                Filters
-              </button>
-              <button 
-                className="show-mobile"
-                onClick={() => { setMobileFiltersOpen(true); }} 
-                style={{ fontWeight: 600, display: 'none' /* handled in css */ }}
-              >
-                <SlidersHorizontal size={14} style={{ marginRight: '4px' }} />
-                Filters
-              </button>
-              
-              {filtersExpanded && (
-                <div className="filter-dropdown-group">
-                  <div className="filter-dropdown-container">
-                    <button onClick={() => setActiveDropdown(activeDropdown === 'concern' ? null : 'concern')}>
-                      Concern <ChevronDown size={14}/>
-                    </button>
-                    {activeDropdown === 'concern' && (
-                      <div className="filter-dropdown-panel">
-                        {CONCERNS.map(con => (
-                          <label key={con.id || 'all'} className="filter-radio-label">
-                            <input type="radio" name="concern" checked={selectedConcern === con.id} onChange={() => setSelectedConcern(con.id)} />
-                            {con.label}
-                          </label>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div className="filter-dropdown-container">
-                    <button onClick={() => setActiveDropdown(activeDropdown === 'skintype' ? null : 'skintype')}>
-                      Skin type <ChevronDown size={14}/>
-                    </button>
-                    {activeDropdown === 'skintype' && (
-                      <div className="filter-dropdown-panel">
-                        {SKIN_TYPES.map(st => (
-                          <label key={st.id || 'all'} className="filter-radio-label">
-                            <input type="radio" name="skintype" checked={selectedSkinType === st.id} onChange={() => setSelectedSkinType(st.id)} />
-                            {st.label}
-                          </label>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div className="filter-dropdown-container">
-                    <button onClick={() => setActiveDropdown(activeDropdown === 'ingredient' ? null : 'ingredient')}>
-                      Ingredient <ChevronDown size={14}/>
-                    </button>
-                    {activeDropdown === 'ingredient' && (
-                      <div className="filter-dropdown-panel" style={{ maxHeight: '300px', overflowY: 'auto' }}>
-                        <label className="filter-radio-label">
-                          <input type="radio" name="ingredient" checked={selectedIngredient === ''} onChange={() => setSelectedIngredient('')} />
-                          All Ingredients
-                        </label>
-                        {INGREDIENTS.map(ing => (
-                          <label key={ing} className="filter-radio-label">
-                            <input type="radio" name="ingredient" checked={selectedIngredient === ing} onChange={() => setSelectedIngredient(ing)} />
-                            {ing}
-                          </label>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div className="filter-dropdown-container">
-                    <button onClick={() => setActiveDropdown(activeDropdown === 'price' ? null : 'price')}>
-                      Price <ChevronDown size={14}/>
-                    </button>
-                    {activeDropdown === 'price' && (
-                      <div className="filter-dropdown-panel">
-                        <input type="range" min="0" max="10000" step="100" value={maxPrice} onChange={(e) => setMaxPrice(Number(e.target.value))} className="price-slider" style={{ marginBottom: '12px' }} />
-                        <div className="price-inputs" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                          <input type="number" value={minPrice} onChange={(e) => setMinPrice(Number(e.target.value))} min="0" style={{ width: '80px' }} />
-                          <span>-</span>
-                          <input type="number" value={maxPrice} onChange={(e) => setMaxPrice(Number(e.target.value))} min="0" style={{ width: '80px' }} />
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-            
-            <div className="toolbar-meta">
-              <select className="sort-dropdown" style={{ marginRight: 'var(--space-4)' }} aria-label="Sort products">
-                <option value="featured">Featured</option>
-                <option value="price-asc">Price: Low to High</option>
-                <option value="price-desc">Price: High to Low</option>
-                <option value="rating">Top Rated</option>
-              </select>
-              {activeFiltersCount > 0 && (
-                <div className="active-filters-pill">
-                  {activeFiltersCount} Filter{activeFiltersCount > 1 ? 's' : ''} Active
-                </div>
-              )}
-              <span className="results-count">{products.length} results</span>
-            </div>
-          </div>
+          <FilterBar categories={categories} totalResults={products.length} />
 
           {/* Grid */}
           {isLoading ? (
@@ -300,12 +145,7 @@ export const Shop: React.FC<{ categorySlug?: string }> = ({ categorySlug }) => {
               <h2 className="text-h2">No Products Found</h2>
               <p className="text-body">Try adjusting your filters or browse all products.</p>
               <Button variant="secondary" onClick={() => {
-                setSelectedCategory('');
-                setSelectedConcern(null);
-                setSelectedIngredient('');
-                setSelectedSkinType(null);
-                setMinPrice(0);
-                setMaxPrice(10000);
+                setSearchParams(new URLSearchParams());
               }}>
                 Clear Filters
               </Button>
@@ -371,66 +211,6 @@ export const Shop: React.FC<{ categorySlug?: string }> = ({ categorySlug }) => {
             </div>
           )}
         </main>
-      </div>
-
-      {/* Mobile Filters Drawer */}
-      <Drawer
-        isOpen={mobileFiltersOpen}
-        onClose={() => setMobileFiltersOpen(false)}
-      >
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', paddingBottom: 'var(--space-8)' }}>
-          <div>
-            <h4 style={{ marginBottom: 'var(--space-3)' }}>Concern</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-              {CONCERNS.map(con => (
-                <label key={con.id || 'all'} className="filter-radio-label">
-                  <input type="radio" name="concern-mobile" checked={selectedConcern === con.id} onChange={() => setSelectedConcern(con.id)} />
-                  {con.label}
-                </label>
-              ))}
-            </div>
-          </div>
-          <div>
-            <h4 style={{ marginBottom: 'var(--space-3)' }}>Skin Type</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-              {SKIN_TYPES.map(st => (
-                <label key={st.id || 'all'} className="filter-radio-label">
-                  <input type="radio" name="skintype-mobile" checked={selectedSkinType === st.id} onChange={() => setSelectedSkinType(st.id)} />
-                  {st.label}
-                </label>
-              ))}
-            </div>
-          </div>
-          <div>
-            <h4 style={{ marginBottom: 'var(--space-3)' }}>Ingredient</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-              <label className="filter-radio-label">
-                <input type="radio" name="ingredient-mobile" checked={selectedIngredient === ''} onChange={() => setSelectedIngredient('')} />
-                All Ingredients
-              </label>
-              {INGREDIENTS.map(ing => (
-                <label key={ing} className="filter-radio-label">
-                  <input type="radio" name="ingredient-mobile" checked={selectedIngredient === ing} onChange={() => setSelectedIngredient(ing)} />
-                  {ing}
-                </label>
-              ))}
-            </div>
-          </div>
-          <div>
-            <h4 style={{ marginBottom: 'var(--space-3)' }}>Price</h4>
-            <input type="range" min="0" max="10000" step="100" value={maxPrice} onChange={(e) => setMaxPrice(Number(e.target.value))} className="price-slider" style={{ marginBottom: '12px' }} />
-            <div className="price-inputs" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              <input type="number" value={minPrice} onChange={(e) => setMinPrice(Number(e.target.value))} min="0" style={{ width: '80px' }} />
-              <span>-</span>
-              <input type="number" value={maxPrice} onChange={(e) => setMaxPrice(Number(e.target.value))} min="0" style={{ width: '80px' }} />
-            </div>
-          </div>
-          
-          <Button onClick={() => setMobileFiltersOpen(false)} style={{ marginTop: 'var(--space-4)' }}>
-            Show {products.length} Results
-          </Button>
-        </div>
-      </Drawer>
     </PageWrapper>
   );
 };
