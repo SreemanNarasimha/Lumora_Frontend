@@ -174,25 +174,6 @@ export const FilterBar: React.FC<FilterBarProps> = ({ categories, totalResults }
 
   return (
     <div className="filter-bar-container">
-      {/* Category Row */}
-      <div className="category-chips-row">
-        <button 
-          className={`category-chip ${activeCategory === '' ? 'active' : ''}`}
-          onClick={() => handleCategoryClick('')}
-        >
-          All
-        </button>
-        {categories.map(cat => (
-          <button 
-            key={cat.categoryId}
-            className={`category-chip ${activeCategory === cat.categoryId.toString() ? 'active' : ''}`}
-            onClick={() => handleCategoryClick(cat.categoryId.toString())}
-          >
-            {cat.categoryName}
-          </button>
-        ))}
-      </div>
-
       {/* Utility Bar */}
       <div className="utility-bar">
         <div className="results-count">{totalResults} results</div>

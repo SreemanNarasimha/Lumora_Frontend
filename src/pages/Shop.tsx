@@ -53,6 +53,12 @@ export const Shop: React.FC<{ categorySlug?: string }> = ({ categorySlug }) => {
     return matched ? matched.categoryId.toString() : '';
   }, [categorySlug, categories, searchParams]);
 
+  const matchedCategoryName = React.useMemo(() => {
+    const id = searchParams.get('categoryId') || matchedCategoryId;
+    const matched = categories.find((c: any) => c.categoryId.toString() === id);
+    return matched ? matched.categoryName : (categorySlug || searchParams.get('search') || '');
+  }, [matchedCategoryId, categories, searchParams, categorySlug]);
+
   const searchQuery = searchParams.get('search')?.toLowerCase() || '';
 
   const [addingId, setAddingId] = React.useState<number | null>(null);
@@ -116,6 +122,18 @@ export const Shop: React.FC<{ categorySlug?: string }> = ({ categorySlug }) => {
   return (
     <PageWrapper>
         <main className="dashboard-main" style={{ width: '100%' }}>
+          {matchedCategoryName && (
+            <h1 style={{ 
+              textAlign: 'center', 
+              textTransform: 'uppercase', 
+              fontFamily: 'var(--font-heading)', 
+              fontSize: '32px', 
+              margin: 'var(--space-6) 0 var(--space-4)',
+              letterSpacing: '0.1em'
+            }}>
+              {matchedCategoryName}
+            </h1>
+          )}
           <FilterBar categories={categories} totalResults={products.length} />
 
           {/* Grid */}

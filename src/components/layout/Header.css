@@ -55,6 +55,7 @@
   letter-spacing: 0.15em;
   color: var(--text-primary);
   text-decoration: none;
+  text-transform: uppercase;
 }
 
 /* ─── Nav Links ────────────────────────────────── */
@@ -147,7 +148,7 @@
 .header-utilities {
   display: flex;
   align-items: center;
-  gap: var(--space-8); /* Approx 32px spacing */
+  gap: var(--space-4);
 }
 
 .header-icon-btn {
