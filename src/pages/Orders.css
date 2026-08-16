@@ -11,4 +11,18 @@
 .order-card-meta { display: flex; gap: var(--space-5); color: var(--text-secondary); padding: var(--space-3) 0; border-top: 1px solid var(--border-general); border-bottom: 1px solid var(--border-general); }
 .order-card-actions { display: flex; gap: var(--space-3); flex-wrap: wrap; }
 .orders-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-4); padding: var(--space-9) var(--space-8); text-align: center; border: 1px dashed var(--border-general); background: transparent; }
-@media (max-width: 767px) { .orders-page { padding: 0 var(--space-4) var(--space-7); } .orders-tabs { flex-wrap: wrap; } }
+@media (max-width: 767px) { 
+  .orders-page { padding: 0 var(--space-4) var(--space-7); } 
+  .orders-tabs { flex-wrap: wrap; } 
+  .order-card-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+.order-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}

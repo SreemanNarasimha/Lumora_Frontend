@@ -146,7 +146,7 @@ export const Orders: React.FC = () => {
                   
                 </div>
 
-                <div className="order-card-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div className="order-card-footer">
                   <div>
                     <span className="text-body-sm" style={{ color: 'var(--text-secondary)' }}>Total Amount</span>
                     <p style={{ fontFamily: 'var(--font-heading)', fontSize: '32px', color: 'var(--text-primary)', margin: 0, marginTop: 'var(--space-1)' }}>₹{order.totalAmount.toLocaleString('en-IN')}</p>
