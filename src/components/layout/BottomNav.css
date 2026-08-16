@@ -7,10 +7,11 @@
   z-index: 100; /* Under drawer */
   padding: 0 var(--space-4);
   padding-bottom: var(--safe-bottom);
-  background-color: rgba(242, 239, 232, 0.86); /* porcelain at 86% */
+  background-color: var(--color-surface);
+  opacity: 0.95;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-top: 1px solid var(--ink-15);
+  border-top: 1px solid var(--border-general);
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
@@ -28,7 +29,7 @@
   align-items: center;
   justify-content: center;
   gap: 4px;
-  color: var(--ink-45);
+  color: var(--text-muted);
   text-decoration: none;
   background: transparent;
   border: none;
@@ -52,12 +53,12 @@
   width: 3px;
   height: 3px;
   border-radius: 50%;
-  background-color: var(--brass);
+  background-color: var(--color-secondary);
 }
 
 .bottom-nav-item:hover,
 .bottom-nav-item.active {
-  color: var(--brass);
+  color: var(--color-secondary);
 }
 
 .bottom-nav-label {
