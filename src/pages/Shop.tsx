@@ -47,10 +47,23 @@ export const Shop: React.FC<{ categorySlug?: string }> = ({ categorySlug }) => {
   });
 
   const matchedCategoryId = React.useMemo(() => {
-    if (!categorySlug) return searchParams.get('categoryId') || '';
-    const slugLower = categorySlug.toLowerCase();
-    const matched = categories.find((c: any) => c.categoryName.toLowerCase().includes(slugLower));
-    return matched ? matched.categoryId.toString() : '';
+    if (categorySlug) {
+      const slugLower = categorySlug.toLowerCase();
+      const matched = categories.find((c: any) => c.categoryName.toLowerCase().includes(slugLower));
+      return matched ? matched.categoryId.toString() : searchParams.get('categoryId') || '';
+    }
+    const searchParam = searchParams.get('search');
+    if (searchParam) {
+      const searchLower = searchParam.toLowerCase().trim();
+      if (searchLower.length > 2) {
+        const matched = categories.find((c: any) => 
+          c.categoryName.toLowerCase().includes(searchLower) || 
+          searchLower.includes(c.categoryName.toLowerCase())
+        );
+        if (matched) return matched.categoryId.toString();
+      }
+    }
+    return searchParams.get('categoryId') || '';
   }, [categorySlug, categories, searchParams]);
 
   const matchedCategoryName = React.useMemo(() => {
@@ -121,7 +134,7 @@ export const Shop: React.FC<{ categorySlug?: string }> = ({ categorySlug }) => {
 
   return (
     <PageWrapper>
-        <main className="dashboard-main" style={{ width: '100%' }}>
+        <main className="dashboard-main" style={{ width: '100%', padding: '0 1.5rem', maxWidth: '1440px', margin: '0 auto' }}>
           {matchedCategoryName && (
             <h1 style={{ 
               textAlign: 'center', 
