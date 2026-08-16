@@ -85,7 +85,7 @@ export const Dashboard: React.FC = () => {
     else if (slug === 'moisturisers' || slug === 'moisturisers' || slug === 'moisturizer') slug = 'moisturizers';
     else if (slug === 'sunscreens' || slug === 'sunscreen') slug = 'sunscreens';
     else if (slug === 'masks' || slug === 'mask') slug = 'masks';
-    else if (slug === 'essencess' || slug === 'essence') slug = 'essence';
+    else if (slug === 'essencess' || slug === 'essence' || slug === 'essences') slug = 'essences';
     else if (slug === 'serums' || slug === 'serum') slug = 'serum';
     else if (slug === 'toners' || slug === 'toner') slug = 'toner';
 

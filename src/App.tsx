@@ -69,7 +69,7 @@ function App() {
                   <Route path="/shop"     element={<Shop />} />
                   <Route path="/cleaner"  element={<Shop categorySlug="cleanser" />} />
                   <Route path="/toner"    element={<Shop categorySlug="toner" />} />
-                  <Route path="/essence"  element={<Shop categorySlug="essence" />} />
+                  <Route path="/essences" element={<Shop categorySlug="essences" />} />
                   <Route path="/serum"    element={<Shop categorySlug="serum" />} />
                   <Route path="/Ampoules" element={<Shop categorySlug="ampoule" />} />
                   <Route path="/moisturizers" element={<Shop categorySlug="moisturiser" />} />
