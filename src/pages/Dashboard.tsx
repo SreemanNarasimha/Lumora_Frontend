@@ -78,18 +78,8 @@ export const Dashboard: React.FC = () => {
     }
   });
 
-  const handleCategoryClick = (name: string) => {
-    let slug = name.toLowerCase().trim();
-    if (slug === 'cleansers' || slug === 'cleanser') slug = 'cleaner';
-    else if (slug === 'ampoules' || slug === 'ampoule') slug = 'Ampoules';
-    else if (slug === 'moisturisers' || slug === 'moisturisers' || slug === 'moisturizer') slug = 'moisturizers';
-    else if (slug === 'sunscreens' || slug === 'sunscreen') slug = 'sunscreens';
-    else if (slug === 'masks' || slug === 'mask') slug = 'masks';
-    else if (slug === 'essencess' || slug === 'essence' || slug === 'essences') slug = 'essences';
-    else if (slug === 'serums' || slug === 'serum') slug = 'serum';
-    else if (slug === 'toners' || slug === 'toner') slug = 'toner';
-
-    navigate(`/${slug}`);
+  const handleCategoryClick = (categoryId: number) => {
+    navigate(`/shop?categoryId=${categoryId}`);
   };
 
   const categoryImages: Record<string, string> = {
@@ -138,7 +128,7 @@ export const Dashboard: React.FC = () => {
             <div 
               key={cat.categoryId} 
               className={`dashboard-category-circle-wrapper`}
-              onClick={() => handleCategoryClick(cat.categoryName)}
+              onClick={() => handleCategoryClick(cat.categoryId)}
             >
               <div className="dashboard-category-circle">
                 <img src={getCategoryImage(cat.categoryName)} alt={cat.categoryName} loading="lazy" />
